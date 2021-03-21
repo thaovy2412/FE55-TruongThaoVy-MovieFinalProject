@@ -1,0 +1,7 @@
+<div *ngIf="control?.invalid && (control?.dirty || control?.touched)">
+  <ng-container *ngFor="let error of control.errors | keyvalue">
+    <span *ngIf="error.value">
+      {{messages[name][error.key]}}
+    </span>
+  </ng-container>
+</div>

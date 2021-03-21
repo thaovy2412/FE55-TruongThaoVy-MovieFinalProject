@@ -1,0 +1,109 @@
+<section class="movieDetail">
+  <div
+    class="bg-img"
+    [ngStyle]="{
+      'background-image': 'url(' + infoMovieShowTimes?.hinhAnh + ')'
+    }"
+  ></div>
+  <div class="movieDetail__content">
+    <div class="movieInfo row">
+      <div
+        class="col-3 movieImg"
+        [ngStyle]="{
+          'background-image': 'url(' + infoMovieShowTimes?.hinhAnh + ')'
+        }"
+      ></div>
+      <div class="col-5 movieDes">
+        <p>{{ infoMovieShowTimes?.ngayKhoiChieu.toString().slice(0, 10) }}</p>
+        <span class="titleMovie">
+          <span class="ageType">P</span>
+          <span class="">{{ infoMovieShowTimes?.tenPhim }}</span>
+        </span>
+        <p>{{ infoMovieShowTimes?.moTa }}</p>
+        <p>
+          {{
+            infoMovieShowTimes?.heThongRapChieu[0].cumRapChieu[0]
+              .lichChieuPhim[0].thoiLuong
+          }}
+          phút - 0 IMDb - 2D/Digital
+        </p>
+        <button>Mua vé</button>
+      </div>
+      <div class="col-4 movieRating">
+        <div class="movieRating__content">
+          <span class="rating__number">10</span>
+          <div class="rating__star">
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+          </div>
+          <p>3 người đánh giá</p>
+        </div>
+      </div>
+    </div>
+    <div class="movieShowTimes">
+      <ul class="cinemaSystemList">
+        <li
+          class="cinemaSystem"
+          *ngFor="let cinemaSystem of infoMovieShowTimes?.heThongRapChieu"
+        >
+          <div
+            (click)="setSelectedCinemaSystem(cinemaSystem.maHeThongRap)"
+            [ngClass]="{
+              active: selectedCinemaSystem == cinemaSystem.maHeThongRap
+            }"
+            class="cinemaSystem__detail"
+          >
+            <img [src]="cinemaSystem.logo" />
+            <p>{{ cinemaSystem.tenHeThongRap }}</p>
+          </div>
+        </li>
+      </ul>
+      <div class="showTimes">
+        <div class="dayOfWeek">
+          <div
+            [ngClass]="{
+              active:
+                day.getFullYear() +
+                  '-' +
+                  padLeadingZeros(day.getMonth() + 1, 2) +
+                  '-' +
+                  padLeadingZeros(day.getDate(), 2) ===
+                selectedDay
+            }"
+            (click)="setSelectedDay(day)"
+            class="day"
+            *ngFor="let day of dsNgayChieu"
+          >
+            <p>{{ layThu(day.getDay()) }}</p>
+            <p>{{ day.getDate() }}</p>
+          </div>
+        </div>
+        <div
+          *ngIf="cumRapChieu.length >= 1; else noShowTimes"
+          class="lichChieuCacCumRap"
+        >
+          <div *ngFor="let item of cumRapChieu" class="lichChieuMotCumRap">
+            <img
+              src="../../../assets/img/cum-rap.jpg"
+              width="50px"
+              height="50px"
+            />
+            <p class="nameCinema">{{ item.tenCumRap }}</p>
+            <p class="type">2D Digital</p>
+            <div class="lichChieu">
+              <a routerLink="/chitietphongve/{{lichchieu.maLichChieu}}" *ngFor="let lichchieu of item.lichChieuPhim">{{
+                lichchieu.ngayChieuGioChieu.toString().slice(11, 16)
+              }}</a>
+            </div>
+          </div>
+        </div>
+        <ng-template #noShowTimes>
+          <div class="noShowTime">Không có lịch chiếu</div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</section>

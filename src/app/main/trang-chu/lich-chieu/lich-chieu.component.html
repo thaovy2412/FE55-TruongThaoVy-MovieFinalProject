@@ -1,0 +1,46 @@
+<section class="showTimes">
+  <div class="container showTimes__content">
+    <ul class="cinemaSystemList">
+      <li *ngFor="let cinemaSystem of cinemaSystemList" [ngClass]="{'activeCinemaSystem': cinemaSystem.maHeThongRap == selectedCinemaSystem }" (click)="setSelectedCinemaSystem(cinemaSystem.maHeThongRap)">
+        <a>
+          <img [src]="cinemaSystem.logo">
+        </a>
+      </li>
+    </ul>
+    <div class="cinemaList">
+      <div [ngClass]="{'activeCinema': cinema.maCumRap===selectedCinema}" *ngFor="let cinema of showTimes[0]?.lstCumRap| slice: 0:6" class="cinema" (click)="setSelectedCinema(cinema.maCumRap)">
+        <img src="../../../../assets/img/cum-rap.jpg">
+        <div class="cinemaInfo">
+          <span class="cinemaName">{{cinema.tenCumRap}}</span>
+          <span class="cinemaAddress">{{cinema.diaChi}}</span>
+          <span class="showingDetailCinema">
+            <a routerLink="/chitietcumrap/{{cinema.maCumRap}}">[chi tiết]</a>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="movieShowTimes">
+      <ng-container *ngFor="let cinemaShowTimes of cinemaShowTimesList">
+        <ng-container *ngIf="cinemaShowTimes.maCumRap==selectedCinema">
+          <div *ngFor="let movieShowTimes of cinemaShowTimes.danhSachPhim" class="movieShowTimesItem">
+            <div class="movieInfo">
+              <img [src]="movieShowTimes.hinhAnh">
+              <div class="wrapInfo">
+                <p>{{movieShowTimes.tenPhim}}</p>
+                <p>100 phút - 123phim - IMDb 8.6</p>
+              </div>
+            </div>
+            <div class="movieTime">
+              <ng-container *ngFor="let movieTime of movieShowTimes.lstLichChieuTheoPhim">
+                <a routerLink="/chitietphongve/{{movieTime.maLichChieu}}" *ngIf="getDate(movieTime?.ngayChieuGioChieu)==getDate(movieShowTimes.lstLichChieuTheoPhim[0]?.ngayChieuGioChieu)" class="movieTime__item">
+                  {{getTime(movieTime?.ngayChieuGioChieu)}}
+                </a>
+              </ng-container>
+            </div>
+          </div>
+        </ng-container>
+      </ng-container>
+    </div>
+  </div>
+</section>
+

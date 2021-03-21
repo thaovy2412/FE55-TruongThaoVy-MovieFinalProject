@@ -1,0 +1,15 @@
+<h2>Đăng Nhập</h2>
+<form [formGroup]="formDangNhap" (ngSubmit)="handleSignIn()">
+  <div class="form-group">
+    <label>Tài khoản</label>
+    <input type="text" class="form-control" formControlName="taiKhoan">
+    <app-error-message name="taiKhoan" [control]="formDangNhap.get('taiKhoan')"></app-error-message>
+  </div>
+  <div class="form-group">
+    <label>Mật khẩu</label>
+    <input type="password" class="form-control" formControlName="matKhau">
+    <app-error-message name="matKhau" [control]="formDangNhap.get('matKhau')"></app-error-message>
+  </div>
+  <p *ngIf="error" class="alert alert-danger">{{error}}</p>
+  <button class="btn" [disabled]="loading">Đăng Nhập</button>
+</form>

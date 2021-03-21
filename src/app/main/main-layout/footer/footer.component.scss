@@ -1,0 +1,72 @@
+footer{
+  background-color: #222;
+  padding: 20px 0;
+  hr{
+    border-top: 1px solid #4a4a4a;
+  }
+  .top{
+    .top__item{
+      h6{
+        font-size: 14px;
+        color: #fff;
+      }
+      .top__info{
+        a{
+          font-size: 13px;
+          color: #949494;
+          font-weight: 500;
+          display: block;
+          margin: 15px 0;
+          cursor: pointer;
+          transition: all 0.5s;
+          &:hover{
+            color: #fff;
+          }
+        }
+      }
+      .top__icon__partner{
+        .iconConnect{
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+          margin: 10px 15px 10px 0;
+          transition: all 0.5s;
+          opacity: 1;
+          &:hover{
+            opacity: 0.7;
+          }
+        }
+      }
+      .top__app__social{
+        .iconApp{
+          height: 30px;
+          margin: 10px 15px 0 0;
+        }
+      }
+    }
+  }
+  .bottom{
+    .bottom__logo{
+      .zionLogo{
+        width: 80px;
+        border-radius: 8px;
+      }
+      .boCoLogo{
+        width: 130px;
+        float: right;
+      }
+    }
+    .bottom__info{
+      h6{
+        color: #fff;
+        font-size: 14px;
+      }
+      p{
+        font-size: 13px;
+        color: #949494;
+        font-weight: 400;
+        margin: 10px 0;
+      }
+    }
+  }
+}

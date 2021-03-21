@@ -1,0 +1,238 @@
+<section class="movieList">
+  <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <a
+        class="nav-link active"
+        id="home-tab"
+        data-toggle="tab"
+        href="#dangChieu"
+        role="tab"
+        aria-controls="home"
+        aria-selected="true"
+        >Đang Chiếu</a
+      >
+    </li>
+    <li class="nav-item" role="presentation">
+      <a
+        class="nav-link"
+        id="profile-tab"
+        data-toggle="tab"
+        href="#sapChieu"
+        role="tab"
+        aria-controls="profile"
+        aria-selected="false"
+        >Sắp chiếu</a
+      >
+    </li>
+  </ul>
+  <div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="dangChieu" role="tabpanel">
+      <owl-carousel-o [options]="customOptions">
+        <ng-template class="slide" carouselSlide>
+          <div class="row">
+            <div *ngFor="let movie of movieList | slice: 0:4" class="col-3">
+              <div routerLink="/chitietphim/{{movie.maPhim}}" class="card">
+                <img class="card-img-top" [src]="movie.hinhAnh" />
+                <div class="overlay"></div>
+                <div class="card-body">
+                  <h4 class="card-title">{{ movie.tenPhim }}</h4>
+                  <div class="info">
+                    <span>2021</span>
+                    <div class="rating">
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                    </div>
+                  </div>
+                  <div class="btnDetail">
+                    <button routerLink="/chitietphim/{{movie.maPhim}}" class="btn">MUA VÉ</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div *ngFor="let movie of movieList | slice: 5:9" class="col-3">
+              <div routerLink="/chitietphim/{{movie.maPhim}}" class="card">
+                <img class="card-img-top" [src]="movie.hinhAnh" />
+                <div class="overlay"></div>
+                <div class="card-body">
+                  <h4 class="card-title">{{ movie.tenPhim }}</h4>
+                  <div class="info">
+                    <span>2021</span>
+                    <div class="rating">
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                    </div>
+                  </div>
+                  <div class="btnDetail">
+                    <button routerLink="/chitietphim/{{movie.maPhim}}" class="btn">MUA VÉ</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+        <ng-template class="slide" carouselSlide>
+          <div class="row">
+            <div *ngFor="let movie of movieList | slice: 10:14" class="col-3">
+              <div routerLink="/chitietphim/{{movie.maPhim}}" class="card">
+                <img class="card-img-top" [src]="movie.hinhAnh" />
+                <div class="overlay"></div>
+                <div class="card-body">
+                  <h4 class="card-title">{{ movie.tenPhim }}</h4>
+                  <div class="info">
+                    <span>2021</span>
+                    <div class="rating">
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                    </div>
+                  </div>
+                  <div class="btnDetail">
+                    <button routerLink="/chitietphim/{{movie.maPhim}}" class="btn">MUA VÉ</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div *ngFor="let movie of movieList | slice: 15:19" class="col-3">
+              <div routerLink="/chitietphim/{{movie.maPhim}}" class="card">
+                <img class="card-img-top" [src]="movie.hinhAnh" />
+                <div class="overlay"></div>
+                <div class="card-body">
+                  <h4 class="card-title">{{ movie.tenPhim }}</h4>
+                  <div class="info">
+                    <span>2021</span>
+                    <div class="rating">
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                    </div>
+                  </div>
+                  <div class="btnDetail">
+                    <button routerLink="/chitietphim/{{movie.maPhim}}" class="btn">MUA VÉ</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </owl-carousel-o>
+    </div>
+    <!-- <div class="tab-pane fade show" id="sapChieu" role="tabpanel">
+      <owl-carousel-o [options]="customOptions">
+        <ng-template class="slide" carouselSlide>
+          <div class="row">
+            <div *ngFor="let movie of movieList | slice: 20:24" class="col-3">
+              <div routerLink="/chitietphim/{{movie.maPhim}}" class="card">
+                <img class="card-img-top" [src]="movie.hinhAnh" />
+                <div class="overlay"></div>
+                <div class="card-body">
+                  <h4 class="card-title">{{ movie.tenPhim }}</h4>
+                  <div class="info">
+                    <span>2021</span>
+                    <div class="rating">
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                    </div>
+                  </div>
+                  <div class="btnDetail">
+                    <button routerLink="/chitietphim/{{movie.maPhim}}" class="btn">MUA VÉ</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div *ngFor="let movie of movieList | slice: 25:29" class="col-3">
+              <div routerLink="/chitietphim/{{movie.maPhim}}" class="card">
+                <img class="card-img-top" [src]="movie.hinhAnh" />
+                <div class="overlay"></div>
+                <div class="card-body">
+                  <h4 class="card-title">{{ movie.tenPhim }}</h4>
+                  <div class="info">
+                    <span>2021</span>
+                    <div class="rating">
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                    </div>
+                  </div>
+                  <div class="btnDetail">
+                    <button routerLink="/chitietphim/{{movie.maPhim}}" class="btn">MUA VÉ</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+        <ng-template class="slide" carouselSlide>
+          <div class="row">
+            <div *ngFor="let movie of movieList | slice: 30:34" class="col-3">
+              <div routerLink="/chitietphim/{{movie.maPhim}}" class="card">
+                <img class="card-img-top" [src]="movie.hinhAnh" />
+                <div class="overlay"></div>
+                <div class="card-body">
+                  <h4 class="card-title">{{ movie.tenPhim }}</h4>
+                  <div class="info">
+                    <span>2021</span>
+                    <div class="rating">
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                    </div>
+                  </div>
+                  <div class="btnDetail">
+                    <button routerLink="/chitietphim/{{movie.maPhim}}" class="btn">MUA VÉ</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div *ngFor="let movie of movieList | slice: 35:39" class="col-3">
+              <div routerLink="/chitietphim/{{movie.maPhim}}" class="card">
+                <img class="card-img-top" [src]="movie.hinhAnh" />
+                <div class="overlay"></div>
+                <div class="card-body">
+                  <h4 class="card-title">{{ movie.tenPhim }}</h4>
+                  <div class="info">
+                    <span>2021</span>
+                    <div class="rating">
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                    </div>
+                  </div>
+                  <div class="btnDetail">
+                    <button routerLink="/chitietphim/{{movie.maPhim}}" class="btn">MUA VÉ</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </owl-carousel-o>
+    </div> -->
+  </div>
+</section>

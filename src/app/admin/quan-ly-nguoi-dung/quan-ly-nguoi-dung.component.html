@@ -1,0 +1,398 @@
+<section class="quanLyNguoiDung">
+  <button
+    [disabled]="addStatus"
+    class="btn addUSerBtn"
+    (click)="changeAddStatus()"
+  >
+    Thêm người dùng
+  </button>
+  <div *ngIf="!addStatus; else addUSer" class="searchEditDelete">
+    <form [formGroup]="searchForm" (ngSubmit)="handleSearch()">
+      <div class="input-group">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Nhập vào tài khoản hoặc tài khoản người dùng"
+          formControlName="name"
+        />
+        <div class="input-group-btn">
+          <button class="btn btn-default">
+            <fa-icon [icon]="faSearch"></fa-icon>
+          </button>
+        </div>
+      </div>
+    </form>
+    <table class="table">
+      <thead>
+        <tr>
+          <th class="stt">STT</th>
+          <th class="taikhoan">Tài khoản</th>
+          <th class="matkhau">Mật khẩu</th>
+          <th class="hoten">Họ tên</th>
+          <th class="email">Email</th>
+          <th class="sodt">Số điện thoại</th>
+          <th class="thaotac">Thao tác</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngIf="danhSachNguoiDung?.length>=1;else noUsers">
+          <tr
+          *ngFor="
+            let user of danhSachNguoiDung
+              | paginate: { itemsPerPage: 5, currentPage: page };
+            let i = index
+          "
+        >
+          <td class="stt">{{ 5 * (page - 1) + i + 1 }}</td>
+          <td class="taikhoan">{{ user.taiKhoan }}</td>
+          <td class="matkhau">{{ user.matKhau }}</td>
+          <td class="hoten">{{ user.hoTen }}</td>
+          <td class="email">{{ user.email }}</td>
+          <td class="sodt">{{ user.soDt }}</td>
+          <td class="thaotac">
+            <button
+              class="btn btn-primary"
+              data-toggle="modal"
+              data-target="#popupEditUser"
+              (click)="getUserInfoTable(user)"
+            >
+              Sửa
+            </button>
+            <button class="btn btn-danger" (click)="deleteUser(user.taiKhoan)">
+              X
+            </button>
+          </td>
+        </tr>
+        </ng-container>
+        <ng-template #noUsers>
+          <tr class="noUsers">
+            <td>Không có người dùng</td>
+          </tr>
+        </ng-template>
+      </tbody>
+    </table>
+    <pagination-controls
+      (pageChange)="pageChanged($event)"
+      (pageBoundsCorrection)="pageChanged($event)"
+      maxSize="9"
+      directionLinks="true"
+      autoHide="true"
+      responsive="true"
+      previousLabel="Previous"
+      nextLabel="Next"
+      screenReaderPaginationLabel="Pagination"
+      screenReaderPageLabel="page"
+      screenReaderCurrentLabel="You're on page"
+    >
+    </pagination-controls>
+    <div
+      class="modal fade"
+      id="popupEditUser"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLongTitle"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title" id="exampleModalLongTitle">
+              Sửa đổi thông tin người dùng
+            </h1>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form [formGroup]="formEdit" (ngSubmit)="handleEdit()">
+              <div class="form-content">
+                <div class="form-group">
+                  <label>Tài khoản</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="taiKhoan"
+                    [attr.disabled]="true"
+                  />
+                  <app-error-message
+                    name="taiKhoan"
+                    [control]="formEdit.get('taiKhoan')"
+                  ></app-error-message>
+                </div>
+                <div class="form-group">
+                  <label>Mật khẩu</label>
+                  <input
+                    type="password"
+                    class="form-control"
+                    formControlName="matKhau"
+                  />
+                  <app-error-message
+                    name="matKhau"
+                    [control]="formEdit.get('matKhau')"
+                  ></app-error-message>
+                </div>
+                <div class="form-group">
+                  <label>Email</label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    formControlName="email"
+                  />
+                  <app-error-message
+                    name="email"
+                    [control]="formEdit.get('email')"
+                  ></app-error-message>
+                </div>
+                <div class="form-group">
+                  <label>Số điện thoại</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="soDt"
+                  />
+                  <app-error-message
+                    name="soDt"
+                    [control]="formEdit.get('soDt')"
+                  ></app-error-message>
+                </div>
+                <div class="form-group">
+                  <label>Họ tên</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="hoTen"
+                  />
+                  <app-error-message
+                    name="hoTen"
+                    [control]="formEdit.get('hoTen')"
+                  ></app-error-message>
+                </div>
+                <div class="form-group">
+                  <label>Mã nhóm</label>
+                  <input
+                    type="text"
+                    formControlName="maNhom"
+                    [attr.disabled]="true"
+                    class="form-control"
+                  />
+                </div>
+                <div class="form-group">
+                  <label>Mã loại người dùng</label>
+                  <input
+                    type="radio"
+                    value="KhachHang"
+                    formControlName="maLoaiNguoiDung"
+                  />Khách Hàng
+                  <input
+                    type="radio"
+                    value="QuanTri"
+                    formControlName="maLoaiNguoiDung"
+                  />Quản Trị
+                </div>
+              </div>
+              <p *ngIf="error" class="alert alert-danger text-center">{{error}}</p>
+              <button [disabled]="loading" class="btn" (click)="handleEdit()">Lưu thay đổi</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-template #addUSer>
+    <form class="formAdd" [formGroup]="formAdd" (ngSubmit)="handleAdd()">
+      <div class="form-content">
+        <div class="form-group">
+          <label>Tài khoản</label>
+          <input type="text" class="form-control" formControlName="taiKhoan" />
+          <app-error-message
+            name="taiKhoan"
+            [control]="formAdd.get('taiKhoan')"
+          ></app-error-message>
+        </div>
+        <div class="form-group">
+          <label>Mật khẩu</label>
+          <input
+            type="password"
+            class="form-control"
+            formControlName="matKhau"
+          />
+          <app-error-message
+            name="matKhau"
+            [control]="formAdd.get('matKhau')"
+          ></app-error-message>
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" class="form-control" formControlName="email" />
+          <app-error-message
+            name="email"
+            [control]="formAdd.get('email')"
+          ></app-error-message>
+        </div>
+        <div class="form-group">
+          <label>Số điện thoại</label>
+          <input type="tel" class="form-control" formControlName="soDt" />
+          <app-error-message
+            name="soDt"
+            [control]="formAdd.get('soDt')"
+          ></app-error-message>
+        </div>
+        <div class="form-group">
+          <label>Họ tên</label>
+          <input type="text" class="form-control" formControlName="hoTen" />
+          <app-error-message
+            name="hoTen"
+            [control]="formAdd.get('hoTen')"
+          ></app-error-message>
+        </div>
+        <div class="form-group">
+          <label>Mã loại người dùng</label>
+          <div class="form-control">
+            <input
+              type="radio"
+              value="KhachHang"
+              formControlName="maLoaiNguoiDung"
+            />Khách Hàng
+            <input
+              type="radio"
+              value="QuanTri"
+              formControlName="maLoaiNguoiDung"
+            />Quản Trị
+          </div>
+        </div>
+      </div>
+    </form>
+    <p *ngIf="error" class="alert alert-danger text-center w-50 mx-auto mb-3">{{error}}</p>
+    <div class="btnFunc">
+      <button (click)="handleBack()" class="btn back">
+        <fa-icon [icon]="faBack"></fa-icon>Trở lại
+      </button>
+      <button [disabled]="loading" class="btn add" (click)="handleAdd()">Thêm</button>
+    </div>
+  </ng-template>
+  <!-- Button trigger modal -->
+<button
+#btnShowAddUserSuccessModal
+type="button"
+[hidden]="true"
+class="btn btn-primary btn-lg"
+data-toggle="modal"
+data-target="#addUserSuccessModal"
+></button>
+
+<!-- Modal -->
+<div
+class="modal fade modal-success modal-success"
+id="addUserSuccessModal"
+tabindex="-1"
+role="dialog"
+aria-labelledby="modelTitleId"
+aria-hidden="true"
+>
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button
+      #btnCloseAddUserSuccessModal
+      type="button"
+      class="close"
+      data-dismiss="modal"
+      aria-label="Close"
+      (click)="reload()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    <div class="modal-body">
+      <img src="../../../assets/img/Post-notification.png" width="70" />
+      <p>Thêm thành công người dùng!</p>
+    </div>
+  </div>
+</div>
+</div>
+ <!-- Button trigger modal -->
+ <button
+ #btnShowDelUserSuccessModal
+ type="button"
+ [hidden]="true"
+ class="btn btn-primary btn-lg"
+ data-toggle="modal"
+ data-target="#delUserSuccessModal"
+ ></button>
+
+ <!-- Modal -->
+ <div
+ class="modal fade modal-success modal-success"
+ id="delUserSuccessModal"
+ tabindex="-1"
+ role="dialog"
+ aria-labelledby="modelTitleId"
+ aria-hidden="true"
+ >
+ <div class="modal-dialog" role="document">
+   <div class="modal-content">
+     <div class="modal-header">
+       <button
+       #btnCloseDelUserSuccessModal
+       type="button"
+       class="close"
+       data-dismiss="modal"
+       aria-label="Close"
+       (click)="reload()"
+     >
+       <span aria-hidden="true">&times;</span>
+     </button>
+     </div>
+     <div class="modal-body">
+       <img src="../../../assets/img/Post-notification.png" width="70" />
+       <p>Xóa thành công người dùng!</p>
+     </div>
+   </div>
+ </div>
+ </div>
+ <!-- Button trigger modal -->
+ <button
+ #btnShowUpdateUserSuccessModal
+ type="button"
+ [hidden]="true"
+ class="btn btn-primary btn-lg"
+ data-toggle="modal"
+ data-target="#updateUserSuccessModal"
+ ></button>
+
+ <!-- Modal -->
+ <div
+ class="modal fade modal-success modal-success"
+ id="updateUserSuccessModal"
+ tabindex="-1"
+ role="dialog"
+ aria-labelledby="modelTitleId"
+ aria-hidden="true"
+ >
+ <div class="modal-dialog" role="document">
+   <div class="modal-content">
+     <div class="modal-header">
+       <button
+       #btnCloseUpdateUserSuccessModal
+       type="button"
+       class="close"
+       data-dismiss="modal"
+       aria-label="Close"
+       (click)="reload()"
+     >
+       <span aria-hidden="true">&times;</span>
+     </button>
+     </div>
+     <div class="modal-body">
+       <img src="../../../assets/img/Post-notification.png" width="70" />
+       <p>Cập nhật thông tin người dùng thành công!</p>
+     </div>
+   </div>
+ </div>
+ </div>
+</section>

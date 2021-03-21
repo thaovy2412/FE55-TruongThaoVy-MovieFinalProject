@@ -1,0 +1,45 @@
+h2{
+  text-align: center;
+  margin-bottom: 20px;
+}
+form{
+  input{
+    transition: all 0.5s;
+    &:focus{
+      box-shadow: none;
+      border-color: #505170;
+    }
+  }
+  button{
+    width: 100%;
+    background-color: #505170;
+    border-radius: 0;
+    color: #fff;
+    margin: 15px 0;
+    padding: 10px 0;
+  }
+}
+
+.modal-signupsuccess{
+  background-color: rgba(0,0,0,.85);
+  .modal-dialog{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    .modal-content{
+      .modal-body{
+        text-align: center;
+        padding: 40px 20px;
+        p{
+          font-size: 20px;
+          margin-top: 10px;
+        }
+        button{
+          margin: 0 10px;
+          font-size: 14px;
+        }
+      }
+    }
+  }
+}

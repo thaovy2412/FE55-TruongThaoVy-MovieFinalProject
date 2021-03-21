@@ -1,0 +1,255 @@
+<app-header></app-header>
+<section class="ticketRoom">
+  <div
+    [ngStyle]="{
+      'background-image': 'url(' + danhSachPhongVe?.thongTinPhim?.hinhAnh + ')'
+    }"
+    class="ticketRoom__bg"
+  >
+    <div class="bg__overlay"></div>
+  </div>
+  <div class="seatCheckout">
+    <div class="topContent">
+      <div class="leftTitle">
+        <div class="contentCinema">
+          <p class="address">
+            {{ danhSachPhongVe?.thongTinPhim.tenCumRap }}
+          </p>
+          <p class="hour">
+            {{ danhSachPhongVe?.thongTinPhim.ngayChieu }} -
+            {{ danhSachPhongVe?.thongTinPhim.gioChieu }} -
+            {{ danhSachPhongVe?.thongTinPhim.tenRap }}
+          </p>
+        </div>
+      </div>
+      <div class="rightTitle">
+        <p class="info1">thời gian giữ ghế</p>
+        <countdown
+          [config]="{ leftTime: 300, format: 'mm:ss' }"
+          (event)="timeup($event)"
+        ></countdown>
+      </div>
+    </div>
+    <div class="seatMap">
+      <div class="screen">
+        <img src="../../../assets/img/screen.png" />
+      </div>
+      <div class="listSeat">
+        <div *ngFor="let rowSeat of danhSachGheTheoHang" class="rowSeat">
+          <div class="rowSeat__content">
+            <p>{{ rowSeat.hang }}</p>
+            <button
+              (click)="chonGhe(rowSeat.hang, seat.stt)"
+              (click)="tinhTongTien(seat.giaVe, seat.dangChon)"
+              (click)="
+                hienThiGheDangChon(
+                  rowSeat.hang,
+                  seat.sttTheoHang,
+                  seat.dangChon
+                )
+              "
+              (click)="chonVe(seat.maGhe, seat.giaVe, seat.dangChon)"
+              [disabled]="seat.daDat"
+              class="btn"
+              *ngFor="let seat of rowSeat.danhSachGhe"
+              [ngClass]="{
+                normal: seat.loaiGhe == 'Thuong',
+                vip: seat.loaiGhe == 'Vip',
+                daDat: seat.daDat,
+                dangChon: seat.dangChon
+              }"
+            >
+              <span [innerHTML]="seat.dangChon ? seat.sttTheoHang : ''"></span>
+            </button>
+          </div>
+        </div>
+        <!-- <img class="seatCenter" src="../../../assets/img/seatcenter.png" /> -->
+      </div>
+      <div class="noteSeat">
+        <div class="typeSeats">
+          <div class="typeSeat seatNormal">
+            <button></button>
+            <p>Ghế thường</p>
+          </div>
+          <div class="typeSeat seatVip">
+            <button></button>
+            <p>Ghế Vip</p>
+          </div>
+          <div class="typeSeat seatChoosing">
+            <button></button>
+            <p>Ghế đang chọn</p>
+          </div>
+          <div class="typeSeat seatChosen">
+            <button></button>
+            <p>Ghế đã có người chọn</p>
+          </div>
+        </div>
+        <div class="positionViews">
+          <span class="positionView">
+            <span class="lineView lineCenter"></span>
+            <span class="titleView">Ghế trung tâm</span>
+          </span>
+          <span class="positionView">
+            <span class="lineView lineBeautiful"></span>
+            <span class="titleView">Ghế Đẹp</span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="rightCheckout">
+    <div class="rightCheckout__content">
+      <div class="total">{{ total }} đ</div>
+      <div class="infoFilm">
+        <p class="filmName">{{ this.danhSachPhongVe?.thongTinPhim.tenPhim }}</p>
+        <p class="address">
+          {{ this.danhSachPhongVe?.thongTinPhim.tenCumRap }}
+        </p>
+        <p class="time">
+          {{ danhSachPhongVe?.thongTinPhim.ngayChieu }} -
+          {{ danhSachPhongVe?.thongTinPhim.gioChieu }} -
+          {{ danhSachPhongVe?.thongTinPhim.tenRap }}
+        </p>
+      </div>
+      <div class="chair row">
+        <div class="info col-7">
+          <span class="title">Ghế </span>
+          <span class="soGhe">{{ this.danhSachGheDangChon }}</span>
+        </div>
+        <div class="col-5 totalChair">{{ total }} đ</div>
+      </div>
+      <div class="infoUser">
+        <div class="row">
+          <input
+            class="content"
+            id="emailCheckout"
+            type="text"
+            [value]="userInfo.email"
+          />
+          <label for="emailCheckout">E-Mail</label>
+        </div>
+      </div>
+      <div class="infoUser">
+        <div class="row">
+          <input class="content" type="text" [value]="userInfo.soDT" />
+          <label for="phoneCheckout">Phone</label>
+        </div>
+      </div>
+      <div class="methodpay">
+        <p class="titleMethodpay">Hình thức thanh toán</p>
+        <div class="chosenMethod zalopay">
+          <div class="paymentParent">
+            <input name="method" type="radio" checked />
+            <img src="../../../assets/img/zalopay-icon.jpg" class="icon" />
+            <div class="titleChosen">Thanh toán qua ZaloPay</div>
+          </div>
+        </div>
+        <div class="chosenMethod cc">
+          <div class="paymentParent">
+            <input name="method" type="radio" />
+            <img src="../../../assets/img/cc-icon.png" class="icon" />
+            <div class="titleChosen">Visa, Master, JCB</div>
+          </div>
+        </div>
+        <div class="chosenMethod atm">
+          <div class="paymentParent">
+            <input name="method" type="radio" />
+            <img src="../../../assets/img/atm-icon.png" class="icon" />
+            <div class="titleChosen">Thẻ ATM nội địa</div>
+          </div>
+        </div>
+        <div class="chosenMethod payoo">
+          <div class="paymentParent">
+            <input name="method" type="radio" />
+            <img src="../../../assets/img/payoo-icon.png" class="icon" />
+            <div class="titleChosen">Thanh toán tại cửa hàng tiện ích</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div (click)="datVe()" class="buyTicket">Đặt vé</div>
+  </div>
+</section>
+<!-- Button trigger modal -->
+<button
+  #btn
+  type="button"
+  [hidden]="true"
+  class="btn btn-primary btn-lg"
+  data-toggle="modal"
+  data-target="#rebook"
+></button>
+
+<!-- Modal -->
+<div
+  class="modal fade modal-rebookticket"
+  id="rebook"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="modelTitleId"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <button
+        #btnclosemodalrebook
+        [hidden]="true"
+        type="button"
+        class="close"
+        data-dismiss="modal"
+        aria-label="Close"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <div class="modal-body">
+        Đã hết thời gian giữ ghế. Vui lòng thực hiện đơn hàng trong thời hạn 5
+        phút. <span (click)="closemodalrebook()" (click)="reload()">Đặt vé lại</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Button trigger modal -->
+<button
+  #success
+  type="button"
+  [hidden]="true"
+  class="btn btn-primary btn-lg"
+  data-toggle="modal"
+  data-target="#datvethanhcong"
+></button>
+
+<!-- Modal -->
+<div
+  class="modal fade modal-success"
+  id="datvethanhcong"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="modelTitleId"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <button
+        #btnclosemodaldatvethanhcong
+        [hidden]="true"
+        type="button"
+        class="close"
+        data-dismiss="modal"
+        aria-label="Close"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <div class="modal-body">
+        <img src="../../../assets/img/Post-notification.png" width="70" />
+        <p>Đặt vé thành công!</p>
+        <button (click)="closemodaldatvethanhcong()" routerLink="/" class="btn btn-success">
+          Quay lại trang chủ
+        </button>
+        <button (click)="closemodaldatvethanhcong()" routerLink="/thongtincanhan" class="btn btn-success">
+          Xem lịch sử đặt vé
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

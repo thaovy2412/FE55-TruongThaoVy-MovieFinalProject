@@ -1,0 +1,600 @@
+<section class="quanLyPhim">
+  <button
+    [disabled]="statusAdd"
+    class="btn btnAddMovie"
+    (click)="changeStatus()"
+  >
+    Thêm phim
+  </button>
+  <div *ngIf="!statusAdd; else themPhim" class="createEditDelete">
+    <table class="table">
+      <thead>
+        <tr>
+          <th class="maphim">Mã phim</th>
+          <th class="tenphim">Tên phim</th>
+          <th class="hinhanh">Hình ảnh</th>
+          <th class="mota">Mô tả</th>
+          <th class="manhom">Mã nhóm</th>
+          <th class="ngaykc">Ngày khởi chiếu</th>
+          <th class="thaotac">Thao tác</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="
+            let phim of danhSachPhim
+              | paginate
+                : { id: 'danhsachphim', itemsPerPage: 5, currentPage: page }
+          "
+        >
+          <td class="maphim">{{ phim.maPhim }}</td>
+          <td class="tenphim">{{ phim.tenPhim }}</td>
+          <td class="hinhanh">
+            <img [src]="phim.hinhAnh" />
+          </td>
+          <td class="mota">{{ phim.moTa }}</td>
+          <td class="manhom">{{ phim.maNhom }}</td>
+          <td class="ngaykc">
+            {{ getDate(phim.ngayKhoiChieu) }}
+          </td>
+          <td class="thaotac">
+            <button
+              data-toggle="modal"
+              data-target="#popupLichChieu"
+              class="btn btn-success"
+              (click)="getMovie(phim)"
+            >
+              Tạo lịch chiếu
+            </button>
+            <button
+              data-toggle="modal"
+              data-target="#popupEditMovie"
+              class="btn btn-primary"
+              (click)="getMovieInfo(phim)"
+            >
+              Sửa
+            </button>
+            <button [disabled]="loading" class="btn btn-danger" (click)="xoaPhim(phim.maPhim)">
+              X
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <pagination-controls
+      id="danhsachphim"
+      (pageChange)="pageChanged($event)"
+      (pageBoundsCorrection)="pageChanged($event)"
+      maxSize="9"
+      directionLinks="true"
+      autoHide="true"
+      responsive="true"
+      previousLabel="Previous"
+      nextLabel="Next"
+      screenReaderPaginationLabel="Pagination"
+      screenReaderPageLabel="page"
+      screenReaderCurrentLabel="You're on page"
+    >
+    </pagination-controls>
+    <div
+      #modal
+      class="modal fade"
+      id="popupEditMovie"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLongTitle"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title" id="exampleModalLongTitle">
+              Sửa đổi thông tin phim
+            </h1>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form
+              class="formEdit"
+              [formGroup]="formEditMovie"
+              (ngSubmit)="handleEdit()"
+            >
+              <div class="formEdit__content1">
+                <div class="form-group">
+                  <label>Mã phim</label>
+                  <input
+                    [attr.disabled]="true"
+                    type="text"
+                    class="form-control"
+                    formControlName="maPhim"
+                  />
+                </div>
+                <div class="form-group">
+                  <label>Ngày khởi chiếu</label>
+                  <input
+                    type="date"
+                    class="form-control"
+                    formControlName="ngayKhoiChieu"
+                  />
+                  <app-error-message name="ngayKhoiChieu" [control]="formEditMovie.get('ngayKhoiChieu')"></app-error-message>
+                </div>
+                <div class="form-group">
+                  <label>Tên phim</label>
+                  <input
+                    [attr.disabled]="true"
+                    type="text"
+                    class="form-control"
+                    formControlName="tenPhim"
+                  />
+                </div>
+                <div class="form-group">
+                  <label>Đánh giá</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="danhGia"
+                  />
+                  <app-error-message name="danhGia" [control]="formEditMovie.get('danhGia')"></app-error-message>
+                </div>
+                <div class="form-group">
+                  <label>Trailer</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="trailer"
+                  />
+                  <app-error-message name="trailer" [control]="formEditMovie.get('trailer')"></app-error-message>
+                </div>
+                <div class="form-group">
+                  <label>Bí danh</label>
+                  <input
+                    [attr.disabled]="true"
+                    type="text"
+                    class="form-control"
+                    formControlName="biDanh"
+                  />
+                </div>
+                <div class="form-group">
+                  <label>Hình ảnh</label>
+                  <input
+                    type="file"
+                    class="form-control-file"
+                    (change)="handleChangeFile2($event)"
+                  />
+                </div>
+                <div class="form-group">
+                  <label>Mã nhóm</label>
+                  <input
+                    type="text"
+                    [attr.disabled]="true"
+                    formControlName="maNhom"
+                    class="form-control"
+                  />
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Mô tả</label>
+                <textarea
+                  class="form-control"
+                  rows="4"
+                  formControlName="moTa"
+                ></textarea>
+              </div>
+            </form>
+            <p *ngIf="error" class="alert alert-danger text-center w-50">{{error}}</p>
+            <button [disabled]="loading" class="btn" (click)="handleEdit()">
+              Lưu thay đổi
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-template #themPhim>
+    <form class="formAdd" [formGroup]="formAddMovie">
+      <div class="group1">
+        <div class="form-group">
+          <label>Mã phim</label>
+          <input type="text" class="form-control" formControlName="maPhim" />
+          <app-error-message
+            name="maPhim"
+            [control]="formAddMovie.get('maPhim')"
+          ></app-error-message>
+        </div>
+        <div class="form-group">
+          <label>Ngày khởi chiếu</label>
+          <input
+            type="date"
+            class="form-control"
+            formControlName="ngayKhoiChieu"
+          />
+          <app-error-message
+            name="ngayKhoiChieu"
+            [control]="formAddMovie.get('ngayKhoiChieu')"
+          ></app-error-message>
+        </div>
+        <div class="form-group">
+          <label>Tên phim</label>
+          <input type="text" class="form-control" formControlName="tenPhim" />
+          <app-error-message
+            name="tenPhim"
+            [control]="formAddMovie.get('tenPhim')"
+          ></app-error-message>
+        </div>
+        <div class="form-group">
+          <label>Đánh giá</label>
+          <input type="text" class="form-control" formControlName="danhGia" />
+          <app-error-message
+            name="danhGia"
+            [control]="formAddMovie.get('danhGia')"
+          ></app-error-message>
+        </div>
+        <div class="form-group">
+          <label>Trailer</label>
+          <input type="text" class="form-control" formControlName="trailer" />
+          <app-error-message
+            name="trailer"
+            [control]="formAddMovie.get('trailer')"
+          ></app-error-message>
+        </div>
+        <div class="form-group">
+          <label>Bí danh</label>
+          <input type="text" class="form-control" formControlName="biDanh" />
+          <app-error-message
+            name="biDanh"
+            [control]="formAddMovie.get('biDanh')"
+          ></app-error-message>
+        </div>
+        <div class="form-group">
+          <label>Hình ảnh</label>
+          <input
+            #hinhAnh
+            type="file"
+            class="form-control-file"
+            accept="image/png, image/jpeg"
+            (change)="handleChangeFile($event)"
+          />
+          <app-error-message
+            name="hinhAnh"
+            [control]="formAddMovie.get('hinhAnh')"
+          ></app-error-message>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Mô tả</label>
+        <textarea
+          class="form-control"
+          rows="4"
+          formControlName="moTa"
+        ></textarea>
+        <app-error-message
+          name="moTa"
+          [control]="formAddMovie.get('moTa')"
+        ></app-error-message>
+      </div>
+    </form>
+    <p *ngIf="error" class="alert alert-danger text-center m-auto w-50">{{error}}</p>
+    <div class="btnFunc">
+      <button (click)="handleBack()" class="btn back">
+        <fa-icon [icon]="faBack"></fa-icon>Trở lại
+      </button>
+      <button [disabled]="loading" class="btn add" (click)="handleAdd()">Thêm</button>
+    </div>
+    <!-- Button trigger modal -->
+    <button
+      #btnShowAddMovieSuccessModal
+      type="button"
+      [hidden]="true"
+      class="btn btn-primary"
+      data-toggle="modal"
+      data-target="#addMovieSuccessModal"
+    >
+      Launch demo modal
+    </button>
+
+    <!-- Modal -->
+    <div
+      class="modal fade modal-success"
+      id="addMovieSuccessModal"
+      tabindex="-1"
+      aria-labelledby="modelTitleId"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button
+              (click)="reload()"
+              #btnCloseAddMovieSuccessModal
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <img width="70" src="../../../assets/img/Post-notification.png" />
+            <p>Bạn đã thêm phim thành công!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  <div
+    #modal
+    class="modal fade"
+    id="popupLichChieu"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="exampleModalLongTitle"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title" id="exampleModalLongTitle">
+            Thông tin lịch chiếu phim của phim {{ phimChoosing?.tenPhim }}
+          </h1>
+          <button
+          (click)="refesh()"
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="taoLichChieu">
+            <form
+              [formGroup]="formAddShowtimes"
+              (ngSubmit)="handleAddShowTimes()"
+            >
+              <div class="form__content">
+                <div class="form-group">
+                  <select
+                    #sHtRap
+                    class="form-control"
+                    (change)="selectCinemaSystem($event)"
+                  >
+                    <option value="" selected disabled hidden>
+                      Chọn hệ thống rạp
+                    </option>
+                    <option
+                      *ngFor="let htRap of heThongRap"
+                      [value]="htRap.maHeThongRap"
+                    >
+                      {{ htRap.tenHeThongRap }}
+                    </option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <div class="d-flex align-items-center">
+                    <label>Chọn ngày chiếu giờ chiếu</label>
+                    <input
+                      type="datetime-local"
+                      class="form-control"
+                      formControlName="ngayChieuGioChieu"
+                    />
+                  </div>
+                  <app-error-message
+                    name="ngayChieuGioChieu"
+                    [control]="formAddShowtimes.get('ngayChieuGioChieu')"
+                  ></app-error-message>
+                </div>
+                <div class="form-group">
+                  <select
+                    #sCumRap
+                    class="form-control"
+                    (change)="selectedCinema($event)"
+                  >
+                    <option value="" selected disabled hidden>
+                      Chọn cụm rạp
+                    </option>
+                    <option
+                      *ngFor="let cumrap of cumRap"
+                      [value]="cumrap.maCumRap"
+                    >
+                      {{ cumrap.tenCumRap }}
+                    </option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <div class="d-flex align-items-center">
+                    <label>Mã nhóm</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      disabled
+                      value="GP01"
+                    />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <select #sRap class="form-control" formControlName="maRap">
+                    <option value="" selected disabled hidden>Chọn rạp</option>
+                    <option *ngFor="let rap of danhSachRap" [value]="rap.maRap">
+                      {{ rap.tenRap }}
+                    </option>
+                  </select>
+                  <app-error-message
+                    name="maRap"
+                    [control]="formAddShowtimes.get('maRap')"
+                  ></app-error-message>
+                </div>
+                <div class="form-group">
+                  <div class="d-flex align-items-center">
+                    <label>Nhập giá vé</label>
+                    <input
+                      #iGiaVe
+                      type="number"
+                      class="form-control"
+                      formControlName="giaVe"
+                    />
+                  </div>
+                  <app-error-message
+                    name="giaVe"
+                    [control]="formAddShowtimes.get('giaVe')"
+                  ></app-error-message>
+                </div>
+              </div>
+              <p *ngIf="error" class="alert alert-danger w-50 text-center m-auto">{{error}}</p>
+              <button
+                [disabled]="loading"
+                class="btn btn-success"
+                (click)="handleAddShowTimes()"
+              >
+                Tạo lịch chiếu
+              </button>
+            </form>
+          </div>
+          <div class="thongTinLichChieu">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th class="malc">Mã lịch chiếu</th>
+                  <th class="htrap">Hệ thống rạp</th>
+                  <th class="cumrap">Cụm rạp</th>
+                  <th class="time">Ngày giờ chiếu</th>
+                  <th class="price">Giá vé</th>
+                  <th class="tl">Thời lượng phim</th>
+                </tr>
+              </thead>
+              <tbody>
+                <ng-container
+                  *ngIf="
+                    thongTinLichChieuPhim?.heThongRapChieu.length >= 1;
+                    else noShowTimes
+                  "
+                >
+                  <ng-container
+                    *ngFor="
+                      let hethongrap of thongTinLichChieuPhim?.heThongRapChieu
+                    "
+                  >
+                    <ng-container
+                      *ngFor="let cumrap of hethongrap?.cumRapChieu"
+                    >
+                      <tr
+                        *ngFor="
+                          let lichchieu of cumrap?.lichChieuPhim
+                        "
+                      >
+                        <td class="malc">{{ lichchieu.maLichChieu }}</td>
+                        <td class="htrap">{{ hethongrap.tenHeThongRap }}</td>
+                        <td class="cumrap">{{ cumrap.tenCumRap }}</td>
+                        <td class="time">{{ getDateTime(lichchieu.ngayChieuGioChieu) }}</td>
+                        <td class="price">{{ lichchieu.giaVe }}</td>
+                        <td class="tl">{{ lichchieu.thoiLuong }}</td>
+                      </tr>
+                    </ng-container>
+                  </ng-container>
+                </ng-container>
+                <ng-template #noShowTimes>
+                  <tr class="noShowTimes">
+                    <td></td>
+                    <td>Không có lịch chiếu phim</td>
+                    <td></td>
+                  </tr>
+                </ng-template>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Button trigger modal -->
+  <button
+  #btnShowAddMovieShowTimesSuccessModal
+  type="button"
+  [hidden]="true"
+  class="btn btn-primary"
+  data-toggle="modal"
+  data-target="#addMovieShowTimesSuccessModal"
+>
+  Launch demo modal
+</button>
+
+<!-- Modal -->
+<div
+class="modal fade modal-addsuccess"
+id="updateMovieSuccessModal"
+tabindex="-1"
+aria-labelledby="modelTitleId"
+aria-hidden="true"
+>
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button
+        (click)="reload()"
+        #btnCloseUpdateMovieSuccessModal
+        type="button"
+        class="close"
+        data-dismiss="modal"
+        aria-label="Close"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <img width="70" src="../../../assets/img/Post-notification.png" />
+      <p>Cập nhật thông tin phim thành công!</p>
+    </div>
+  </div>
+</div>
+</div>
+<!-- Button trigger modal -->
+<button
+#btnShowDelMovieSuccessModal
+type="button"
+[hidden]="true"
+class="btn btn-primary"
+data-toggle="modal"
+data-target="#delMovieSuccessModal"
+>
+Launch demo modal
+</button>
+
+<!-- Modal -->
+<div
+class="modal fade modal-success"
+id="delMovieSuccessModal"
+tabindex="-1"
+aria-labelledby="modelTitleId"
+aria-hidden="true"
+>
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button
+        (click)="reload()"
+        #btnCloseDelMovieSuccessModal
+        type="button"
+        class="close"
+        data-dismiss="modal"
+        aria-label="Close"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <img width="70" src="../../../assets/img/Post-notification.png" />
+      <p>Xóa thành công phim!</p>
+    </div>
+  </div>
+</div>
+</div>
+</section>
+

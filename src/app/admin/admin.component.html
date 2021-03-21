@@ -1,0 +1,28 @@
+<section class="adminPage">
+  <nav id="sidebar">
+    <div class="logo">
+      <img width="50" src="../../assets/img/logo.png">
+      <span>Cybersoft Admin</span>
+    </div>
+    <div class="infoAdmin">
+      <div class="userLogo">
+        <div class="imgAdmin"></div>
+        <h3>{{currentUSer.hoTen}}</h3>
+      </div>
+    </div>
+    <ul class="menu">
+      <li [class]="{'active':option==='quanlyphim'}" (click)="setoption('quanlyphim')" routerLink="/admin/quanlyphim">
+        <a (click)="setoption('quanlyphim')" routerLink="/admin/quanlyphim"> <fa-icon [icon]="faFilm"></fa-icon> Quản lý phim </a>
+      </li>
+      <li [class]="{'active':option==='quanlynguoidung'}" (click)="setoption('quanlynguoidung')" routerLink="/admin/quanlynguoidung">
+        <a (click)="setoption('quanlynguoidung')" routerLink="/admin/quanlynguoidung"> <fa-icon [icon]="faUsers"></fa-icon> Quản lý người dùng </a>
+      </li>
+      <li (click)="logout()">
+        <a (click)="logout()"> <fa-icon [icon]="faSignOut"></fa-icon> Đăng xuất </a>
+      </li>
+    </ul>
+  </nav>
+  <div id="content">
+    <router-outlet></router-outlet>
+  </div>
+</section>

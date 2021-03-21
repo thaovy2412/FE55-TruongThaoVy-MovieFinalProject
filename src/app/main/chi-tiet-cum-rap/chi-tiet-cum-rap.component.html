@@ -1,0 +1,75 @@
+<section class="chiTietCumRap container-fluid">
+  <div class="cinemaBg"></div>
+  <div class="info__content">
+    <div class="cinemaInfo row">
+      <div class="col-3 cinemaImg">
+        <img src="../../../assets/img/cinema-img.jpg">
+      </div>
+      <div class="col-5 cinemaDes">
+        <p class="cinemaName">{{lichChieuCumRap?.tenCumRap}}</p>
+        <p class="cinemaAdd">{{ lichChieuCumRap?.diaChi }}</p>
+        <button class="btn">Mua vé</button>
+      </div>
+      <div class="col-4 cinemaRating">
+        <div class="cinemaRating__content">
+          <span class="rating__number">10</span>
+          <div class="rating__star">
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+          </div>
+          <p>124 người đánh giá</p>
+        </div>
+      </div>
+    </div>
+    <div class="cinemaShowTimes">
+      <ul class="cinemaList">
+        <li routerLink="/chitietcumrap/{{cinema.maCumRap}}" class="cinema" *ngFor="let cinema of lichChieuHeThongRap[0]?.lstCumRap.slice(0,6)" [class]="{'active': cinema.maCumRap===maCumRap}">
+          <img width="50" height="50" src="../../../assets/img/cum-rap.jpg">
+            <div class="cinema__text">
+              <span class="name">{{cinema.tenCumRap}}</span>
+              <span class="add">{{cinema.diaChi}}</span>
+            </div>
+        </li>
+      </ul>
+      <div class="showTimes">
+        <div class="dayOfWeek">
+          <div
+            [ngClass]="{
+              active:
+                day.getFullYear() +
+                  '-' +
+                  padLeadingZeros(day.getMonth() + 1, 2) +
+                  '-' +
+                  padLeadingZeros(day.getDate(), 2) ===
+                selectedDay
+            }"
+            (click)="setSelectedDay(day)"
+            class="day"
+            *ngFor="let day of dsNgayChieu"
+          >
+            <p>{{ layThu(day.getDay()) }}</p>
+            <p>{{ day.getDate() }}</p>
+          </div>
+        </div>
+        <div *ngIf="dsPhim.length>=1; else noShowTimes" class="lichChieuCacPhim">
+          <div class="lichChieuPhim" *ngFor="let movie of dsPhim">
+            <img [src]="movie.hinhAnh" width="50" height="50">
+            <p class="moviename">{{movie.tenPhim}}</p>
+            <p class="type">2D Digital</p>
+            <div class="lichChieu">
+              <a routerLink="/chitietphongve/{{lichchieu.maLichChieu}}" *ngFor="let lichchieu of movie.lstLichChieuTheoPhim">
+                {{lichchieu.ngayChieuGioChieu.toString().slice(11,16)}}
+              </a>
+            </div>
+          </div>
+        </div>
+        <ng-template #noShowTimes>
+          <div class="noShowTime">Không có lịch chiếu</div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</section>

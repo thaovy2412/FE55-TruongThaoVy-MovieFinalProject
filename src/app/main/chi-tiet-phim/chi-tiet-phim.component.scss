@@ -1,0 +1,244 @@
+.movieDetail {
+  overflow: auto;
+  //position: relative;
+  margin-top: 60px;
+  .bg-img {
+    content: "";
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: -1;
+    display: block;
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    height: 100%;
+    filter: blur(15px);
+  }
+  .movieDetail__content {
+    width: 56%;
+    margin: 80px auto;
+    .movieInfo {
+      color: #e9e9e9;
+      .movieImg {
+        background-position: center;
+        background-size: cover;
+        border-radius: 4px;
+      }
+      .movieDes {
+        padding: 70px 20px;
+        p {
+          font-size: 14px;
+          margin-top: 10px;
+          margin-bottom: 0;
+          text-align: justify;
+          &:first-child {
+            font-weight: 500;
+          }
+        }
+        .titleMovie {
+          font-size: 24px;
+          font-weight: 500;
+          color: #fff;
+          .ageType {
+            background-color: #00ac4d;
+            font-size: 16px;
+            border-radius: 4px;
+            padding: 3px 10px;
+            text-align: center;
+            min-width: 33px;
+            margin-right: 10px;
+          }
+        }
+        button {
+          margin-top: 20px;
+          background-color: #fb4226;
+          color: #fff;
+          font-size: 16px;
+          padding: 7px 25px;
+          border-radius: 4px;
+          transition: all 0.5s;
+          border: none;
+          &:hover {
+            background-color: #b42a14;
+          }
+        }
+      }
+      .movieRating {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        .movieRating__content {
+          .rating__number {
+            background-color: #333;
+            color: white;
+            font-size: 50px;
+            border: 5px solid #7ed321;
+            border-radius: 100%;
+            padding: 30px;
+          }
+          .rating__star {
+            margin-top: 40px;
+            color: #fb4226;
+            text-align: center;
+            font-size: 25px;
+          }
+          p {
+            font-size: 14px;
+            text-align: center;
+          }
+        }
+      }
+    }
+    .movieShowTimes {
+      background-color: #fff;
+      margin-top: 80px;
+      display: flex;
+      .cinemaSystemList {
+        list-style: none;
+        height: 715px;
+        border-top: 1px solid #ebebec;
+        border-bottom: 1px solid #ebebec;
+        border-left: 1px solid #ebebec;
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+        width: 28%;
+        padding: 0;
+        margin-bottom: 0;
+        .cinemaSystem {
+          .cinemaSystem__detail {
+            display: flex;
+            padding: 20px;
+            position: relative;
+            cursor: pointer;
+            opacity: 0.5;
+            img {
+              width: 50px;
+              margin-right: 10px;
+            }
+            p {
+              font-size: 16px;
+              font-weight: 500;
+              margin: auto 0;
+            }
+            &::after {
+              content: "";
+              position: absolute;
+              bottom: 0;
+              width: 80%;
+              left: 10%;
+              border-bottom: 1px solid rgba(238, 238, 238, 0.88);
+            }
+            &:hover {
+              opacity: 1;
+            }
+            &.active {
+              opacity: 1;
+            }
+          }
+        }
+      }
+      .showTimes {
+
+        .dayOfWeek {
+          display: flex;
+          align-items: center;
+          height: 90px;
+          padding: 16px;
+          border-bottom: 1px solid #ebebec;
+          .day {
+            &.active {
+              p {
+                color: #fb4226;
+              }
+            }
+            font-size: 14px;
+            font-weight: 500;
+            margin-right: 50px;
+            cursor: pointer;
+            p {
+              margin-bottom: 0;
+              text-align: center;
+              &:last-child {
+                font-size: 18px;
+              }
+            }
+            &:last-child {
+              margin-right: 0;
+            }
+          }
+        }
+        .lichChieuCacCumRap {
+          overflow: auto;
+          height: 623px;
+          .lichChieuMotCumRap {
+            padding: 20px;
+            position: relative;
+            p {
+              font-weight: 500;
+              color: #036ff4;
+              &.nameCinema {
+                display: inline-block;
+                color: #000;
+                margin-left: 10px;
+                margin-bottom: 0;
+              }
+              &.type {
+                margin-top: 20px;
+                margin-bottom: 10px;
+              }
+            }
+            .lichChieu {
+              display: flex;
+              a {
+                background-color: rgba(246, 246, 246, 0.5);
+                border-radius: 7px;
+                border: 1px solid #e4e4e4;
+                cursor: pointer;
+                text-decoration: none;
+                font-size: 16px;
+                font-weight: 500;
+                color: #108f3e;
+                padding: 10px 15px;
+                margin-right: 10px;
+              }
+            }
+            &::after {
+              content: "";
+              position: absolute;
+              bottom: 0;
+              width: 94%;
+              left: 3%;
+              border-bottom: 1px solid rgba(238, 238, 238, 0.88);
+            }
+          }
+        }
+        .noShowTime{
+          margin: 20px;
+          text-align: center;
+        }
+      }
+    }
+  }
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: rgba(238, 238, 238, 0.88);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #ccc;
+  transition: all 0.5s;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(139, 139, 139);
+}

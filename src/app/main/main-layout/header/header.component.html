@@ -1,0 +1,26 @@
+<header>
+  <a class="left">
+    <img src="../../../assets/img/logo.png" />
+  </a>
+  <div class="center">
+    <a routerLink="/">Trang chủ</a>
+    <a>Liên hệ</a>
+    <a>Tin tức</a>
+    <a>Ứng dụng</a>
+  </div>
+  <div class="right" *ngIf="!currentUSer; else ThongTinNguoiDung">
+    <button routerLink="/dangky">Đăng ký</button>
+    <button routerLink="/dangnhap">Đăng nhập</button>
+  </div>
+  <ng-template #ThongTinNguoiDung>
+    <div class="dropdown account">
+      <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <img src="../../../../assets/img/avatar.png" width="30"> {{currentUSer.hoTen}}
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item" routerLink="/thongtincanhan"><fa-icon [icon]="faUser"></fa-icon> Thông tin cá nhân</a>
+        <a class="dropdown-item" (click)="logout()"><fa-icon [icon]="faSignout"></fa-icon> Đăng xuất</a>
+      </div>
+    </div>
+  </ng-template>
+</header>

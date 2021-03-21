@@ -1,0 +1,50 @@
+<h2>Đăng Ký</h2>
+<form [formGroup]="formDangKy" (ngSubmit)="handleSignup()">
+  <div class="form-group">
+    <label>Tài khoản</label>
+    <input type="text" class="form-control" formControlName="taiKhoan">
+    <app-error-message name="taiKhoan" [control]="formDangKy.get('taiKhoan')"></app-error-message>
+  </div>
+  <div class="form-group">
+    <label>Mật khẩu</label>
+    <input type="password" class="form-control" formControlName="matKhau">
+    <app-error-message name="matKhau" [control]="formDangKy.get('matKhau')"></app-error-message>
+  </div>
+  <div class="form-group">
+    <label>Email</label>
+    <input type="email" class="form-control" formControlName="email">
+    <app-error-message name="email" [control]="formDangKy.get('email')"></app-error-message>
+  </div>
+  <div class="form-group">
+    <label>Số điện thoại</label>
+    <input type="text" class="form-control" formControlName="soDt">
+    <app-error-message name="soDt" [control]="formDangKy.get('soDt')"></app-error-message>
+  </div>
+  <div class="form-group">
+    <label>Họ tên</label>
+    <input type="text" class="form-control" formControlName="hoTen">
+    <app-error-message name="hoTen" [control]="formDangKy.get('hoTen')"></app-error-message>
+  </div>
+  <p *ngIf="error" class="alert alert-danger">{{this.error}}</p>
+  <button class="btn" [disabled]="loading">Đăng Ký</button>
+</form>
+<!-- Button trigger modal -->
+<button #btnShowModal [hidden]="true" type="button" class="btn btn-primary" data-toggle="modal" data-target="#signinModal">
+  Launch demo modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade modal-signupsuccess" id="signinModal" tabindex="-1" aria-labelledby="modelTitleId" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <button #btnCloseModal [hidden]="true" type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <div class="modal-body">
+        <img width="70" src="../../../assets/img/Post-notification.png">
+        <p>Bạn đã đăng ký tài khoản thành công!</p>
+        <button (click)="close()" routerLink="/dangnhap" class="btn btn-success">Đăng nhập</button>
+      </div>
+    </div>
+  </div>
+</div>
