@@ -10,6 +10,7 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MovieService } from 'src/app/core/services/movie.service';
+import { CountdownComponent } from 'ngx-countdown';
 
 @Component({
   selector: 'app-chi-tiet-phong-ve',
@@ -28,6 +29,7 @@ export class ChiTietPhongVeComponent implements OnInit {
   total: number = 0;
   danhSachGheDangChon: string = '';
   userInfo: UserInfo | null = null;
+  @ViewChild('cd',{ static: false }) cd: CountdownComponent;
   @ViewChild('btn') btn:ElementRef;
   @ViewChild('success') success: ElementRef;
   @ViewChild('btnclosemodalrebook') btnclosemodalrebook: ElementRef;
@@ -49,6 +51,7 @@ export class ChiTietPhongVeComponent implements OnInit {
             this.danhSachGhe = result.danhSachGhe;
             console.log(this.danhSachPhongVe);
             this.SapGheTheoHang();
+            this.cd.begin();
           },
         });
       },

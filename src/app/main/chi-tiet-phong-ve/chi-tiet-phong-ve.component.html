@@ -24,8 +24,8 @@
       </div>
       <div class="rightTitle">
         <p class="info1">thời gian giữ ghế</p>
-        <countdown
-          [config]="{ leftTime: 300, format: 'mm:ss' }"
+        <countdown #cd
+          [config]="{ leftTime: 300, format: 'mm:ss', demand:true }"
           (event)="timeup($event)"
         ></countdown>
       </div>
@@ -34,7 +34,7 @@
       <div class="screen">
         <img src="../../../assets/img/screen.png" />
       </div>
-      <div class="listSeat">
+      <div *ngIf="danhSachGheTheoHang.length>=1;else loader" class="listSeat">
         <div *ngFor="let rowSeat of danhSachGheTheoHang" class="rowSeat">
           <div class="rowSeat__content">
             <p>{{ rowSeat.hang }}</p>
@@ -203,7 +203,8 @@
       </button>
       <div class="modal-body">
         Đã hết thời gian giữ ghế. Vui lòng thực hiện đơn hàng trong thời hạn 5
-        phút. <span (click)="closemodalrebook()" (click)="reload()">Đặt vé lại</span>
+        phút.
+        <span (click)="closemodalrebook()" (click)="reload()">Đặt vé lại</span>
       </div>
     </div>
   </div>
@@ -243,13 +244,34 @@
       <div class="modal-body">
         <img src="../../../assets/img/Post-notification.png" width="70" />
         <p>Đặt vé thành công!</p>
-        <button (click)="closemodaldatvethanhcong()" routerLink="/" class="btn btn-success">
+        <button
+          (click)="closemodaldatvethanhcong()"
+          routerLink="/"
+          class="btn btn-success"
+        >
           Quay lại trang chủ
         </button>
-        <button (click)="closemodaldatvethanhcong()" routerLink="/thongtincanhan" class="btn btn-success">
+        <button
+          (click)="closemodaldatvethanhcong()"
+          routerLink="/thongtincanhan"
+          class="btn btn-success"
+        >
           Xem lịch sử đặt vé
         </button>
       </div>
     </div>
   </div>
 </div>
+
+<!-- SPINNING SQUARES -->
+<ng-template #loader>
+  <p class="text-center loader">Đang tải dữ liệu ...</p>
+  <div class="spinner-box">
+    <div class="configure-border-1">
+      <div class="configure-core"></div>
+    </div>
+    <div class="configure-border-2">
+      <div class="configure-core"></div>
+    </div>
+  </div>
+</ng-template>

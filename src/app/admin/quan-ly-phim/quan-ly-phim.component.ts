@@ -112,8 +112,11 @@ export class QuanLyPhimComponent implements OnInit {
           //alert(err.error.text);
           //console.log(err.error.text);
         } else {
-          //console.log(err.error);
-          alert(err.error);
+          if(typeof err.error ==='object'){
+            this.btnShowDelMovieSuccessModal.nativeElement.click();
+          }else{
+            alert(err.error);
+          }
         }
       },
     });
@@ -303,6 +306,7 @@ export class QuanLyPhimComponent implements OnInit {
           alert(err.error.text);
           this.sHtRap.nativeElement.value ="";
           this.sCumRap.nativeElement.value="";
+          this.cumRap=[];
           this.danhSachRap=null;
           this.formAddShowtimes.reset();
           this.formAddShowtimes.controls['maRap'].setValue('');
