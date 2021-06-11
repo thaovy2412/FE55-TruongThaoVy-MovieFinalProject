@@ -46,21 +46,23 @@ export class ChiTietPhimComponent implements OnInit {
     let month = this.padLeadingZeros(day1.getMonth() + 1, 2);
     let date = this.padLeadingZeros(day1.getDate(), 2);
     this.selectedDay = year + '-' + month + '-' + date;
-    console.log(this.selectedDay);
 
     this.activatedRoute.params.subscribe({
       next: (params) => {
         this.movieService.getInfoMovieShowTimes(params.maPhim).subscribe({
           next: (result) => {
             this.infoMovieShowTimes = result;
-            this.selectedCinemaSystem = this.infoMovieShowTimes.heThongRapChieu[0].maHeThongRap;
+            this.selectedCinemaSystem =
+              this.infoMovieShowTimes.heThongRapChieu[0].maHeThongRap;
             this.heThongRapChieu = this.infoMovieShowTimes.heThongRapChieu[0];
             let year = this.dsNgayChieu[0].getFullYear();
-            let month = this.padLeadingZeros(this.dsNgayChieu[0].getMonth() + 1, 2);
+            let month = this.padLeadingZeros(
+              this.dsNgayChieu[0].getMonth() + 1,
+              2
+            );
             let date = this.padLeadingZeros(this.dsNgayChieu[0].getDate(), 2);
             this.selectedDay = year + '-' + month + '-' + date;
             this.setCumRapChieu();
-            console.log(this.cumRapChieu);
           },
         });
       },
@@ -79,7 +81,6 @@ export class ChiTietPhimComponent implements OnInit {
       }
     }
     this.setCumRapChieu();
-    console.log(this.heThongRapChieu);
   }
 
   layThu(day: any) {
@@ -118,11 +119,9 @@ export class ChiTietPhimComponent implements OnInit {
     let month = this.padLeadingZeros(day.getMonth() + 1, 2);
     let date = this.padLeadingZeros(day.getDate(), 2);
     this.selectedDay = year + '-' + month + '-' + date;
-    console.log(this.selectedDay);
     this.setCumRapChieu();
-    console.log(this.cumRapChieu);
   }
-  setCumRapChieu(){
+  setCumRapChieu() {
     for (let i = 0; i < this.heThongRapChieu.cumRapChieu.length; i++) {
       for (
         let j = 0;

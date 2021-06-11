@@ -29,16 +29,17 @@ export class ChiTietPhongVeComponent implements OnInit {
   total: number = 0;
   danhSachGheDangChon: string = '';
   userInfo: UserInfo | null = null;
-  @ViewChild('cd',{ static: false }) cd: CountdownComponent;
-  @ViewChild('btn') btn:ElementRef;
+  @ViewChild('cd', { static: false }) cd: CountdownComponent;
+  @ViewChild('btn') btn: ElementRef;
   @ViewChild('success') success: ElementRef;
   @ViewChild('btnclosemodalrebook') btnclosemodalrebook: ElementRef;
-  @ViewChild('btnclosemodaldatvethanhcong') btnclosemodaldatvethanhcong: ElementRef;
+  @ViewChild('btnclosemodaldatvethanhcong')
+  btnclosemodaldatvethanhcong: ElementRef;
   constructor(
     private activatedRoute: ActivatedRoute,
     private movieService: MovieService,
     private authService: AuthService,
-    private router: Router,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -49,7 +50,6 @@ export class ChiTietPhongVeComponent implements OnInit {
           next: (result) => {
             this.danhSachPhongVe = result;
             this.danhSachGhe = result.danhSachGhe;
-            console.log(this.danhSachPhongVe);
             this.SapGheTheoHang();
             this.cd.begin();
           },
@@ -60,10 +60,8 @@ export class ChiTietPhongVeComponent implements OnInit {
       next: (result) => {
         this.danhSachVeDangDat.taiKhoanNguoiDung = result?.taiKhoan;
         this.userInfo = result;
-        console.log(this.userInfo);
       },
     });
-    console.log(this.danhSachVeDangDat);
   }
 
   SapGheTheoHang() {
@@ -89,11 +87,9 @@ export class ChiTietPhongVeComponent implements OnInit {
         danhSachGheTheoHang = [];
       }
     }
-    console.log(this.danhSachGheTheoHang);
   }
 
   chonGhe(hang: string, soGhe: string) {
-    //console.log(hang,soGhe);
     for (let i = 0; i < this.danhSachGheTheoHang.length; i++) {
       if (this.danhSachGheTheoHang[i].hang === hang) {
         for (
@@ -102,8 +98,8 @@ export class ChiTietPhongVeComponent implements OnInit {
           j++
         ) {
           if (this.danhSachGheTheoHang[i].danhSachGhe[j].stt === soGhe) {
-            this.danhSachGheTheoHang[i].danhSachGhe[j].dangChon = !this
-              .danhSachGheTheoHang[i].danhSachGhe[j].dangChon;
+            this.danhSachGheTheoHang[i].danhSachGhe[j].dangChon =
+              !this.danhSachGheTheoHang[i].danhSachGhe[j].dangChon;
             return;
           }
         }
@@ -124,13 +120,11 @@ export class ChiTietPhongVeComponent implements OnInit {
     if (dangChon) {
       this.danhSachGheDangChon = this.danhSachGheDangChon + ghe;
     } else {
-      //console.log(ghe);
       let x: string = '';
       let danhSachGheDangChon2 = this.danhSachGheDangChon.split(ghe);
       danhSachGheDangChon2.forEach((ghe) => {
         x = x + ghe;
       });
-      console.log(x);
       this.danhSachGheDangChon = x;
     }
   }
@@ -151,17 +145,13 @@ export class ChiTietPhongVeComponent implements OnInit {
         }
       }
     }
-    console.log(this.danhSachVeDangDat);
   }
 
   datVe() {
     this.movieService.datVe(this.danhSachVeDangDat).subscribe({
-      next: (result) => {
-        console.log(result);
-      },
+      next: (result) => {},
       error: (err) => {
         if (err.error.text) {
-          //alert(err.error.text)
           this.success.nativeElement.click();
         } else {
           alert(err.error);
@@ -176,18 +166,18 @@ export class ChiTietPhongVeComponent implements OnInit {
     }
   }
 
-  reload(){
+  reload() {
     let currentUrl = this.router.url;
-      this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-        this.router.navigate([currentUrl]);
-      });
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate([currentUrl]);
+    });
   }
 
-  closemodalrebook(){
+  closemodalrebook() {
     this.btnclosemodalrebook.nativeElement.click();
   }
 
-  closemodaldatvethanhcong(){
+  closemodaldatvethanhcong() {
     this.btnclosemodaldatvethanhcong.nativeElement.click();
   }
 }

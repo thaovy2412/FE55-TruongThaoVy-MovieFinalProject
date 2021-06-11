@@ -10,14 +10,14 @@
         height: 12px;
         border-radius: 50%;
         margin-right: 8px;
-        &.active{
+        &.active {
           background-color: #fb4226;
         }
       }
     }
-    .carousel-inner{
-      .carousel-item{
-        img{
+    .carousel-inner {
+      .carousel-item {
+        img {
           height: 650px;
         }
       }
@@ -36,6 +36,36 @@
         position: absolute;
         top: 45%;
         right: 10%;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .carousel-inner {
+    .carousel-item {
+      img {
+        height: 550px !important;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .carousel-inner {
+    .carousel-item {
+      img {
+        height: 450px !important;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .carousel-inner {
+    .carousel-item {
+      img {
+        height: 350px !important;
       }
     }
   }

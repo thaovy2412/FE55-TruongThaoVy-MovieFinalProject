@@ -24,8 +24,9 @@
       </div>
       <div class="rightTitle">
         <p class="info1">thời gian giữ ghế</p>
-        <countdown #cd
-          [config]="{ leftTime: 300, format: 'mm:ss', demand:true }"
+        <countdown
+          #cd
+          [config]="{ leftTime: 300, format: 'mm:ss', demand: true }"
           (event)="timeup($event)"
         ></countdown>
       </div>
@@ -34,7 +35,10 @@
       <div class="screen">
         <img src="../../../assets/img/screen.png" />
       </div>
-      <div *ngIf="danhSachGheTheoHang.length>=1;else loader" class="listSeat">
+      <div
+        *ngIf="danhSachGheTheoHang.length >= 1; else loader"
+        class="listSeat"
+      >
         <div *ngFor="let rowSeat of danhSachGheTheoHang" class="rowSeat">
           <div class="rowSeat__content">
             <p>{{ rowSeat.hang }}</p>
@@ -99,7 +103,7 @@
   </div>
   <div class="rightCheckout">
     <div class="rightCheckout__content">
-      <div class="total">{{ total }} đ</div>
+      <div class="total">{{ total.toLocaleString() }} đ</div>
       <div class="infoFilm">
         <p class="filmName">{{ this.danhSachPhongVe?.thongTinPhim.tenPhim }}</p>
         <p class="address">
@@ -116,7 +120,7 @@
           <span class="title">Ghế </span>
           <span class="soGhe">{{ this.danhSachGheDangChon }}</span>
         </div>
-        <div class="col-5 totalChair">{{ total }} đ</div>
+        <div class="col-5 totalChair">{{ total.toLocaleString() }} đ</div>
       </div>
       <div class="infoUser">
         <div class="row">

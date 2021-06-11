@@ -49,7 +49,6 @@ export class ChiTietCumRapComponent implements OnInit {
         this.movieService.getShowTimesCinemaSystem(id).subscribe({
           next: (result) => {
             this.lichChieuHeThongRap = result;
-            //console.log(this.lichChieuHeThongRap);
             this.activatedRoute.params.subscribe({
               next: (params) => {
                 this.maCumRap = params.maCumRap;
@@ -63,7 +62,6 @@ export class ChiTietCumRapComponent implements OnInit {
                     this.lichChieuHeThongRap[0].lstCumRap.splice(index, 1)[0]
                   );
                 }
-                //console.log(this.lichChieuHeThongRap);
 
                 for (
                   let i = 0;
@@ -74,10 +72,8 @@ export class ChiTietCumRapComponent implements OnInit {
                     this.lichChieuHeThongRap[0].lstCumRap[i].maCumRap ===
                     this.maCumRap
                   ) {
-                    this.lichChieuCumRap = this.lichChieuHeThongRap[0].lstCumRap[
-                      i
-                    ];
-                    console.log(this.lichChieuCumRap);
+                    this.lichChieuCumRap =
+                      this.lichChieuHeThongRap[0].lstCumRap[i];
                     this.setLichChieuPhim();
                     return;
                   }
@@ -100,7 +96,6 @@ export class ChiTietCumRapComponent implements OnInit {
     let date = this.padLeadingZeros(day.getDate(), 2);
     this.selectedDay = year + '-' + month + '-' + date;
     this.setLichChieuPhim();
-    console.log('dsphim', this.dsPhim);
   }
   layThu(day: any) {
     switch (day) {

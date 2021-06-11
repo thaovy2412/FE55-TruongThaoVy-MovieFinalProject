@@ -1,5 +1,5 @@
 <header>
-  <a class="left">
+  <a class="left" routerLink="/">
     <img src="../../../assets/img/logo.png" />
   </a>
   <div class="center">
@@ -13,14 +13,59 @@
     <button routerLink="/dangnhap">Đăng nhập</button>
   </div>
   <ng-template #ThongTinNguoiDung>
-    <div class="dropdown account">
-      <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <img src="../../../../assets/img/avatar.png" width="30"> {{currentUSer.hoTen}}
+    <div class="dropdown account infoUser">
+      <button
+        class="btn dropdown-toggle"
+        type="button"
+        id="dropdownMenuButton"
+        data-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <img src="../../../../assets/img/avatar.png" width="30" />
+        {{ currentUSer.hoTen }}
       </button>
       <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <a class="dropdown-item" routerLink="/thongtincanhan"><fa-icon [icon]="faUser"></fa-icon> Thông tin cá nhân</a>
-        <a class="dropdown-item" (click)="logout()"><fa-icon [icon]="faSignout"></fa-icon> Đăng xuất</a>
+        <a class="dropdown-item" routerLink="/thongtincanhan"
+          ><fa-icon [icon]="faUser"></fa-icon> Thông tin cá nhân</a
+        >
+        <a class="dropdown-item" (click)="logout()"
+          ><fa-icon [icon]="faSignout"></fa-icon> Đăng xuất</a
+        >
       </div>
     </div>
   </ng-template>
+  <div class="dropdown rightmobile">
+    <button
+      class="btn"
+      type="button"
+      id="dropdownMenuButton"
+      data-toggle="dropdown"
+      aria-haspopup="true"
+      aria-expanded="false"
+    >
+      <img width="30" src="../../../../assets/img/menu-options.png" />
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <div class="user" *ngIf="currentUSer">
+        <img src="../../../../assets/img/avatar.png" width="30" />
+        {{ currentUSer.hoTen }}
+      </div>
+      <a class="dropdown-item" routerLink="/dangnhap" *ngIf="!currentUSer"
+        >Đăng nhập</a
+      >
+      <a class="dropdown-item" routerLink="/dangky" *ngIf="!currentUSer"
+        >Đăng ký</a
+      >
+      <a class="dropdown-item">Tin tức</a>
+      <a class="dropdown-item">Ứng dụng</a>
+      <a class="dropdown-item" routerLink="/thongtincanhan" *ngIf="currentUSer"
+        >Thông tin cá nhân</a
+      >
+      <a class="dropdown-item">Liên hệ</a>
+      <a class="dropdown-item" (click)="logout()" *ngIf="currentUSer"
+        >Đăng xuất</a
+      >
+    </div>
+  </div>
 </header>

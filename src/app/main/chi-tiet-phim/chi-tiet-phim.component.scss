@@ -95,6 +95,7 @@
       margin-top: 80px;
       display: flex;
       .cinemaSystemList {
+        overflow: auto;
         list-style: none;
         height: 715px;
         border-top: 1px solid #ebebec;
@@ -139,14 +140,18 @@
         }
       }
       .showTimes {
-
+        border: 1px solid #ebebec;
+        width: 72%;
         .dayOfWeek {
+          overflow: auto;
           display: flex;
           align-items: center;
           height: 90px;
           padding: 16px;
+          width: 100%;
           border-bottom: 1px solid #ebebec;
           .day {
+            white-space: nowrap;
             &.active {
               p {
                 color: #fb4226;
@@ -213,7 +218,7 @@
             }
           }
         }
-        .noShowTime{
+        .noShowTime {
           margin: 20px;
           text-align: center;
         }
@@ -225,6 +230,7 @@
 /* width */
 ::-webkit-scrollbar {
   width: 5px;
+  height: 5px;
 }
 
 /* Track */
@@ -241,4 +247,14 @@
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: rgb(139, 139, 139);
+}
+@media screen and (max-width: 1200px) {
+  .movieDetail__content {
+    width: 80% !important;
+  }
+}
+@media screen and (max-width: 768px) {
+  .movieDetail__content {
+    width: 90% !important;
+  }
 }

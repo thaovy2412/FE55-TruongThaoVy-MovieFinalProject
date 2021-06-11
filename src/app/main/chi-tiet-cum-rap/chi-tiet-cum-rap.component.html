@@ -2,15 +2,15 @@
   <div class="cinemaBg"></div>
   <div class="info__content">
     <div class="cinemaInfo row">
-      <div class="col-3 cinemaImg">
-        <img src="../../../assets/img/cinema-img.jpg">
+      <div class="col-4 col-md-3 cinemaImg">
+        <img src="../../../assets/img/cinema-img.jpg" />
       </div>
-      <div class="col-5 cinemaDes">
-        <p class="cinemaName">{{lichChieuCumRap?.tenCumRap}}</p>
+      <div class="col-3 col-md-5 cinemaDes">
+        <p class="cinemaName">{{ lichChieuCumRap?.tenCumRap }}</p>
         <p class="cinemaAdd">{{ lichChieuCumRap?.diaChi }}</p>
         <button class="btn">Mua vé</button>
       </div>
-      <div class="col-4 cinemaRating">
+      <div class="col-5 col-md-4 cinemaRating">
         <div class="cinemaRating__content">
           <span class="rating__number">10</span>
           <div class="rating__star">
@@ -26,12 +26,17 @@
     </div>
     <div class="cinemaShowTimes">
       <ul class="cinemaList">
-        <li routerLink="/chitietcumrap/{{cinema.maCumRap}}" class="cinema" *ngFor="let cinema of lichChieuHeThongRap[0]?.lstCumRap.slice(0,6)" [class]="{'active': cinema.maCumRap===maCumRap}">
-          <img width="50" height="50" src="../../../assets/img/cum-rap.jpg">
-            <div class="cinema__text">
-              <span class="name">{{cinema.tenCumRap}}</span>
-              <span class="add">{{cinema.diaChi}}</span>
-            </div>
+        <li
+          routerLink="/chitietcumrap/{{ cinema.maCumRap }}"
+          class="cinema"
+          *ngFor="let cinema of lichChieuHeThongRap[0]?.lstCumRap.slice(0, 6)"
+          [class]="{ active: cinema.maCumRap === maCumRap }"
+        >
+          <img width="50" height="50" src="../../../assets/img/cum-rap.jpg" />
+          <div class="cinema__text">
+            <span class="name">{{ cinema.tenCumRap }}</span>
+            <span class="add">{{ cinema.diaChi }}</span>
+          </div>
         </li>
       </ul>
       <div class="showTimes">
@@ -54,14 +59,20 @@
             <p>{{ day.getDate() }}</p>
           </div>
         </div>
-        <div *ngIf="dsPhim.length>=1; else noShowTimes" class="lichChieuCacPhim">
+        <div
+          *ngIf="dsPhim.length >= 1; else noShowTimes"
+          class="lichChieuCacPhim"
+        >
           <div class="lichChieuPhim" *ngFor="let movie of dsPhim">
-            <img [src]="movie.hinhAnh" width="50" height="50">
-            <p class="moviename">{{movie.tenPhim}}</p>
+            <img [src]="movie.hinhAnh" width="50" height="50" />
+            <p class="moviename">{{ movie.tenPhim }}</p>
             <p class="type">2D Digital</p>
             <div class="lichChieu">
-              <a routerLink="/chitietphongve/{{lichchieu.maLichChieu}}" *ngFor="let lichchieu of movie.lstLichChieuTheoPhim">
-                {{lichchieu.ngayChieuGioChieu.toString().slice(11,16)}}
+              <a
+                routerLink="/chitietphongve/{{ lichchieu.maLichChieu }}"
+                *ngFor="let lichchieu of movie.lstLichChieuTheoPhim"
+              >
+                {{ lichchieu.ngayChieuGioChieu.toString().slice(11, 16) }}
               </a>
             </div>
           </div>

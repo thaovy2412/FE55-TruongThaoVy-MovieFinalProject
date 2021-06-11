@@ -8,12 +8,12 @@
   <div class="movieDetail__content">
     <div class="movieInfo row">
       <div
-        class="col-3 movieImg"
+        class="col-4 col-md-3 movieImg"
         [ngStyle]="{
           'background-image': 'url(' + infoMovieShowTimes?.hinhAnh + ')'
         }"
       ></div>
-      <div class="col-5 movieDes">
+      <div class="col-4 col-md-5 movieDes">
         <p>{{ infoMovieShowTimes?.ngayKhoiChieu.toString().slice(0, 10) }}</p>
         <span class="titleMovie">
           <span class="ageType">P</span>
@@ -29,7 +29,7 @@
         </p>
         <button>Mua vé</button>
       </div>
-      <div class="col-4 movieRating">
+      <div class="col-4 col-md-4 movieRating">
         <div class="movieRating__content">
           <span class="rating__number">10</span>
           <div class="rating__star">
@@ -94,9 +94,11 @@
             <p class="nameCinema">{{ item.tenCumRap }}</p>
             <p class="type">2D Digital</p>
             <div class="lichChieu">
-              <a routerLink="/chitietphongve/{{lichchieu.maLichChieu}}" *ngFor="let lichchieu of item.lichChieuPhim">{{
-                lichchieu.ngayChieuGioChieu.toString().slice(11, 16)
-              }}</a>
+              <a
+                routerLink="/chitietphongve/{{ lichchieu.maLichChieu }}"
+                *ngFor="let lichchieu of item.lichChieuPhim"
+                >{{ lichchieu.ngayChieuGioChieu.toString().slice(11, 16) }}</a
+              >
             </div>
           </div>
         </div>

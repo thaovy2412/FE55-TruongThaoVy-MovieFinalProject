@@ -1,17 +1,17 @@
-footer{
+footer {
   background-color: #222;
   padding: 20px 0;
-  hr{
+  hr {
     border-top: 1px solid #4a4a4a;
   }
-  .top{
-    .top__item{
-      h6{
+  .top {
+    .top__item {
+      h6 {
         font-size: 14px;
         color: #fff;
       }
-      .top__info{
-        a{
+      .top__info {
+        a {
           font-size: 13px;
           color: #949494;
           font-weight: 500;
@@ -19,53 +19,104 @@ footer{
           margin: 15px 0;
           cursor: pointer;
           transition: all 0.5s;
-          &:hover{
+          &:hover {
             color: #fff;
+          }
+          &.hide:hover {
+            text-decoration: none;
           }
         }
       }
-      .top__icon__partner{
-        .iconConnect{
+      .top__icon__partner {
+        .iconConnect {
           width: 30px;
           height: 30px;
           border-radius: 50%;
           margin: 10px 15px 10px 0;
           transition: all 0.5s;
           opacity: 1;
-          &:hover{
+          &:hover {
             opacity: 0.7;
           }
         }
       }
-      .top__app__social{
-        .iconApp{
+      .top__app__social {
+        .iconApp {
           height: 30px;
           margin: 10px 15px 0 0;
         }
       }
     }
   }
-  .bottom{
-    .bottom__logo{
-      .zionLogo{
+  .bottom {
+    .bottom__logo {
+      .zionLogo {
         width: 80px;
         border-radius: 8px;
       }
-      .boCoLogo{
-        width: 130px;
-        float: right;
+      .boCoLogo {
+        width: 100%;
       }
     }
-    .bottom__info{
-      h6{
+    .bottom__info {
+      h6 {
         color: #fff;
         font-size: 14px;
       }
-      p{
+      p {
         font-size: 13px;
         color: #949494;
         font-weight: 400;
         margin: 10px 0;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .top {
+    .top__item {
+      &.options {
+        h6 {
+          display: none;
+        }
+        .top__info {
+          display: flex;
+          justify-content: center;
+          a {
+            margin-right: 10px !important;
+            white-space: nowrap;
+            &.hide {
+              display: none !important;
+            }
+          }
+        }
+      }
+      &.partners {
+        display: none;
+      }
+      &.social {
+        .mobileapp {
+          display: none;
+        }
+        .socialapp {
+          h6 {
+            display: none;
+          }
+          margin: auto;
+          text-align: center;
+        }
+      }
+    }
+  }
+  .bottom {
+    text-align: center;
+    .bottom__logo {
+      .zionLogo {
+        margin-bottom: 15px;
+      }
+      .boCoLogo {
+        width: 130px !important;
       }
     }
   }

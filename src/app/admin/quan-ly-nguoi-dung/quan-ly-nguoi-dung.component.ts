@@ -15,14 +15,20 @@ import { Router } from '@angular/router';
   styleUrls: ['./quan-ly-nguoi-dung.component.scss'],
 })
 export class QuanLyNguoiDungComponent implements OnInit {
-  @ViewChild('btnShowAddUserSuccessModal') btnShowAddUserSuccessModal: ElementRef;
-  @ViewChild('btnCloseAddUserSuccessModal') btnCloseAddUserSuccessModal: ElementRef;
-  @ViewChild('btnShowDelUserSuccessModal') btnShowDelUserSuccessModal: ElementRef;
-  @ViewChild('btnCloseDelUserSuccessModal') btnCloseDelUserSuccessModal: ElementRef;
-  @ViewChild('btnShowUpdateUserSuccessModal') btnShowUpdateUserSuccessModal: ElementRef;
-  @ViewChild('btnCloseUpdateUserSuccessModal') btnCloseUpdateUserSuccessModal: ElementRef;
-  loading:boolean=false;
-  error:string="";
+  @ViewChild('btnShowAddUserSuccessModal')
+  btnShowAddUserSuccessModal: ElementRef;
+  @ViewChild('btnCloseAddUserSuccessModal')
+  btnCloseAddUserSuccessModal: ElementRef;
+  @ViewChild('btnShowDelUserSuccessModal')
+  btnShowDelUserSuccessModal: ElementRef;
+  @ViewChild('btnCloseDelUserSuccessModal')
+  btnCloseDelUserSuccessModal: ElementRef;
+  @ViewChild('btnShowUpdateUserSuccessModal')
+  btnShowUpdateUserSuccessModal: ElementRef;
+  @ViewChild('btnCloseUpdateUserSuccessModal')
+  btnCloseUpdateUserSuccessModal: ElementRef;
+  loading: boolean = false;
+  error: string = '';
   faSearch = faSearch;
   faBack = faBackward;
   faSave = faSave;
@@ -39,22 +45,16 @@ export class QuanLyNguoiDungComponent implements OnInit {
       Validators.minLength(3),
       Validators.maxLength(10),
     ]),
-    matKhau: new FormControl('', [
-      Validators.required,
-      //Validators.pattern('(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}'),
-    ]),
+    matKhau: new FormControl('', [Validators.required]),
     email: new FormControl('', [
       Validators.required,
       Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,}$'),
     ]),
     soDt: new FormControl('', [
       Validators.required,
-      Validators.pattern(/((09|03|07|08|05)+([0-9]{8})\b)/g)
+      Validators.pattern(/((09|03|07|08|05)+([0-9]{8})\b)/g),
     ]),
-    hoTen: new FormControl('', [
-      Validators.required,
-      //Validators.pattern('/^[a-zA-Z\s]*$/')
-    ]),
+    hoTen: new FormControl('', [Validators.required]),
     maNhom: new FormControl(''),
     maLoaiNguoiDung: new FormControl(''),
   });
@@ -64,22 +64,16 @@ export class QuanLyNguoiDungComponent implements OnInit {
       Validators.minLength(3),
       Validators.maxLength(10),
     ]),
-    matKhau: new FormControl('', [
-      Validators.required,
-      //Validators.pattern('(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}'),
-    ]),
+    matKhau: new FormControl('', [Validators.required]),
     email: new FormControl('', [
       Validators.required,
       Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,}$'),
     ]),
     soDt: new FormControl('', [
       Validators.required,
-      Validators.pattern(/((09|03|07|08|05)+([0-9]{8})\b)/g)
+      Validators.pattern(/((09|03|07|08|05)+([0-9]{8})\b)/g),
     ]),
-    hoTen: new FormControl('', [
-      Validators.required,
-      //Validators.pattern('/^[a-zA-Z\s]*$/')
-    ]),
+    hoTen: new FormControl('', [Validators.required]),
     maLoaiNguoiDung: new FormControl('KhachHang'),
   });
   constructor(private adminService: AdminService, private router: Router) {}
@@ -88,7 +82,6 @@ export class QuanLyNguoiDungComponent implements OnInit {
     this.adminService.layDanhSachNguoiDung().subscribe({
       next: (result) => {
         this.danhSachNguoiDung = result;
-        console.log(this.danhSachNguoiDung);
       },
     });
     this.onChange();
@@ -103,29 +96,25 @@ export class QuanLyNguoiDungComponent implements OnInit {
       .timKiemNguoiDung(this.searchForm.get('name').value)
       .subscribe({
         next: (result) => {
-          this.page=1;
+          this.page = 1;
           this.danhSachNguoiDung = result;
-          console.log(this.danhSachNguoiDung);
         },
       });
   }
 
   onChange() {
     this.searchForm.valueChanges.subscribe((val) => {
-      this.page=1;
-      console.log(val);
-      if ((val.name === '')) {
+      this.page = 1;
+      if (val.name === '') {
         this.adminService.layDanhSachNguoiDung().subscribe({
           next: (result) => {
             this.danhSachNguoiDung = result;
-            console.log(this.danhSachNguoiDung);
           },
         });
       } else {
         this.adminService.timKiemNguoiDung(val.name).subscribe({
           next: (result) => {
             this.danhSachNguoiDung = result;
-            console.log(this.danhSachNguoiDung);
           },
         });
       }
@@ -136,12 +125,8 @@ export class QuanLyNguoiDungComponent implements OnInit {
     this.adminService.xoaNguoiDung(taiKhoan).subscribe({
       error: (err) => {
         if (err.error.text) {
-          // console.log(err.error.text);
-          // alert(err.error.text);
-          // this.reload();
           this.btnShowDelUserSuccessModal.nativeElement.click();
         } else {
-          console.log(err.error);
           alert(err.error);
         }
       },
@@ -149,7 +134,7 @@ export class QuanLyNguoiDungComponent implements OnInit {
   }
 
   getUserInfoTable(user: NguoiDung) {
-    this.error="";
+    this.error = '';
     this.formEdit.controls['taiKhoan'].setValue(user.taiKhoan);
     this.formEdit.controls['matKhau'].setValue(user.matKhau);
     this.formEdit.controls['email'].setValue(user.email);
@@ -161,17 +146,17 @@ export class QuanLyNguoiDungComponent implements OnInit {
 
   handleEdit() {
     this.formEdit.markAllAsTouched();
-    if(this.formEdit.invalid) return;
-    this.loading=true;
-    this.error="";
+    if (this.formEdit.invalid) return;
+    this.loading = true;
+    this.error = '';
     this.adminService.capNhatNguoiDung(this.formEdit.value).subscribe({
       next: (result) => {
-        this.loading=false;
+        this.loading = false;
         this.btnShowUpdateUserSuccessModal.nativeElement.click();
       },
       error: (err) => {
-        this.loading=false;
-        this.error=err.error;
+        this.loading = false;
+        this.error = err.error;
       },
     });
   }
@@ -187,24 +172,23 @@ export class QuanLyNguoiDungComponent implements OnInit {
   handleAdd() {
     this.formAdd.markAllAsTouched();
     if (this.formAdd.invalid) return;
-    this.loading=true;
-    this.error="";
+    this.loading = true;
+    this.error = '';
     this.adminService.themNguoiDung(this.formAdd.value).subscribe({
       next: (result) => {
-        this.loading=false;
+        this.loading = false;
         this.btnShowAddUserSuccessModal.nativeElement.click();
       },
       error: (err) => {
-        this.loading=false;
-        this.error=err.error;
-        //alert(err.error);
+        this.loading = false;
+        this.error = err.error;
       },
     });
   }
-  reload(){
+  reload() {
     let currentUrl = this.router.url;
-      this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-        this.router.navigate([currentUrl]);
-      });
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate([currentUrl]);
+    });
   }
 }

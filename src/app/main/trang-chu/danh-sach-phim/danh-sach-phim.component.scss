@@ -14,7 +14,7 @@
         color: #000;
         margin: 20px 0;
         transition: all 0.2s;
-        &.active{
+        &.active {
           background: linear-gradient(to right, #2d7af9, #a753f8);
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
@@ -26,19 +26,19 @@
       }
     }
   }
-  .tab-content{
-    .tab-pane{
-      .card{
+  .tab-content {
+    .tab-pane {
+      .card {
         cursor: pointer;
         height: 420px;
         border: none;
         position: relative;
-        img{
+        img {
           width: 100%;
           height: 320px;
           border-radius: 4px;
         }
-        .overlay{
+        .overlay {
           border-radius: 4px;
           position: absolute;
           top: 0;
@@ -46,62 +46,62 @@
           content: "";
           width: 100%;
           height: 320px;
-          background: linear-gradient(to top,#000,transparent 100%);
+          background: linear-gradient(to top, #000, transparent 100%);
           opacity: 0;
         }
-        .card-body{
+        .card-body {
           padding: 0;
           margin-top: 10px;
           position: relative;
-          .card-title{
+          .card-title {
             font-size: 16px;
             font-weight: 500;
           }
-          .info{
+          .info {
             position: relative;
             display: flex;
             justify-content: space-between;
-            span{
+            span {
               color: #4a4a4a;
               font-size: 13px;
             }
-            .rating{
+            .rating {
               color: #d6c13b;
               font-size: 13px;
             }
           }
-          .btnDetail{
+          .btnDetail {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             opacity: 0;
             visibility: hidden;
-            button{
+            button {
               background: linear-gradient(to right, #2d7af9, #a753f8);
               color: #fff;
               width: 100%;
             }
           }
         }
-        &:hover{
-          .overlay{
+        &:hover {
+          .overlay {
             opacity: 1;
           }
-          .card-body{
-            .card-title{
+          .card-body {
+            .card-title {
               opacity: 0;
             }
-            .info{
+            .info {
               opacity: 0;
             }
-            .btnDetail{
+            .btnDetail {
               opacity: 1;
               visibility: visible;
             }
           }
         }
-        &:focus{
+        &:focus {
           outline: none;
         }
       }
@@ -109,3 +109,8 @@
   }
 }
 
+@media screen and (max-width: 992px) {
+  .movieList {
+    width: 80%;
+  }
+}

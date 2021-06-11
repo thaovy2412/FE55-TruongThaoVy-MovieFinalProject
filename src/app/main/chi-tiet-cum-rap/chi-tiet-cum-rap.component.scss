@@ -21,6 +21,7 @@
         max-width: 220px;
         img {
           width: 100%;
+          height: 100%;
           border-radius: 4px;
           box-shadow: 0 0 16px 0 rgb(0 0 0 / 50%);
         }
@@ -78,6 +79,7 @@
       margin-top: 80px;
       display: flex;
       .cinemaList {
+        overflow: auto;
         list-style: none;
         height: 715px;
         border-top: 1px solid #ebebec;
@@ -91,62 +93,65 @@
         min-height: 600px;
         .cinema {
           display: flex;
-            padding: 20px;
-            position: relative;
-            cursor: pointer;
-            opacity: 0.5;
-            img {
-              margin: auto;
-              margin-right: 10px;
-              margin-left: 0;
+          justify-content: space-around;
+          padding: 20px;
+          position: relative;
+          cursor: pointer;
+          opacity: 0.5;
+          img {
+            margin: auto;
+            margin-right: 10px;
+            margin-left: 0;
+          }
+          .cinema__text {
+            width: 80%;
+            .name {
+              font-size: 14px;
+              margin-bottom: 0;
             }
-            .cinema__text {
-              width: 80%;
-              .name {
-                font-size: 14px;
-                margin-bottom: 0;
-              }
-              .add {
-                margin-bottom: 0;
-                font-size: 12px;
-                color: #b7b7b7;
-                display: block;
-                overflow: hidden;
-                white-space: nowrap;
-                text-overflow: ellipsis;
-              }
+            .add {
+              margin-bottom: 0;
+              font-size: 12px;
+              color: #b7b7b7;
+              display: block;
+              overflow: hidden;
+              white-space: nowrap;
+              text-overflow: ellipsis;
             }
-            &::after {
-              content: "";
-              position: absolute;
-              bottom: 0;
-              width: 86%;
-              left: 7%;
-              border-bottom: 1px solid rgba(238, 238, 238, 0.88);
-            }
-            &:hover {
-              opacity: 1;
-            }
-            &.active {
-              opacity: 1;
-            }
-            &:focus{
-              outline: none;
-            }
+          }
+          &::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            width: 86%;
+            left: 7%;
+            border-bottom: 1px solid rgba(238, 238, 238, 0.88);
+          }
+          &:hover {
+            opacity: 1;
+          }
+          &.active {
+            opacity: 1;
+          }
+          &:focus {
+            outline: none;
+          }
         }
       }
-      .showTimes{
-        width: 72%;
+      .showTimes {
+        width: 65%;
         border: 1px solid #ebebec;
         border-top-right-radius: 4px;
         border-bottom-right-radius: 4px;
         .dayOfWeek {
+          overflow: auto;
           display: flex;
           align-items: center;
           height: 90px;
           padding: 16px;
           border-bottom: 1px solid #ebebec;
           .day {
+            white-space: nowrap;
             &.active {
               p {
                 color: #fb4226;
@@ -168,10 +173,10 @@
             }
           }
         }
-        .lichChieuCacPhim{
+        .lichChieuCacPhim {
           overflow: auto;
           height: 623px;
-          .lichChieuPhim{
+          .lichChieuPhim {
             padding: 20px;
             position: relative;
             p {
@@ -188,7 +193,7 @@
                 margin-bottom: 10px;
               }
             }
-            .lichChieu{
+            .lichChieu {
               display: flex;
               a {
                 background-color: rgba(246, 246, 246, 0.5);
@@ -213,7 +218,7 @@
             }
           }
         }
-        .noShowTime{
+        .noShowTime {
           margin: 20px;
           text-align: center;
         }
@@ -225,6 +230,7 @@
 /* width */
 ::-webkit-scrollbar {
   width: 5px;
+  height: 5px;
 }
 
 /* Track */
@@ -241,4 +247,15 @@
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: rgb(139, 139, 139);
+}
+
+@media screen and (max-width: 1200px) {
+  .info__content {
+    width: 80% !important;
+  }
+}
+@media screen and (max-width: 768px) {
+  .info__content {
+    width: 90% !important;
+  }
 }

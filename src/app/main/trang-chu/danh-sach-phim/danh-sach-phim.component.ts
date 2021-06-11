@@ -16,11 +16,11 @@ export class DanhSachPhimComponent implements OnInit {
     navSpeed: 700,
     responsive: {
       0: {
-        items: 1
+        items: 1,
       },
     },
     nav: true,
-  }
+  };
   @ViewChild('slickModal') slickModal: SlickCarouselComponent;
 
   movieList: Movie[] = [];
@@ -31,7 +31,6 @@ export class DanhSachPhimComponent implements OnInit {
     this.movieService.movieList.subscribe({
       next: (result) => {
         this.movieList = result;
-        console.log(this.movieList);
       },
     });
   }
